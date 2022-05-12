@@ -6,12 +6,12 @@ import '../../Color.dart';
 import '../../helpers/validators.dart';
 import '../../services/authentication/authentication.dart';
 
-class LoginTypePhone extends StatelessWidget {
+class LoginTypeMobile extends StatelessWidget {
 
-  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController mobileController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
-  LoginTypePhone({Key? key}) : super(key: key);
+  LoginTypeMobile({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -102,7 +102,7 @@ class LoginTypePhone extends StatelessWidget {
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width / 1.2,
                   child: TextFormField(
-                    controller: phoneController,
+                    controller: mobileController,
                     inputFormatters: [
                       MaskTextInputFormatter(mask: "+994 (##) ###-##-##"),
                     ],
@@ -148,7 +148,7 @@ class LoginTypePhone extends StatelessWidget {
                       ),
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
-                          bool created = await Authentication.createOtp( phoneController.text );
+                          bool created = await Authentication.createOtp( mobileController.text );
                           if( created )
                             {
                               Navigator.push(context,  MaterialPageRoute(builder: (_) => Otp()));

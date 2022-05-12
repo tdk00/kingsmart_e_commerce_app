@@ -7,13 +7,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 class Authentication {
 
 
-  static createOtp ( phone ) async {
+  static createOtp ( mobile ) async {
     final prefs = await SharedPreferences.getInstance();
-    prefs.setString('user_phone', phone ) ;
+    prefs.setString('user_mobile', mobile ) ;
 
     final uri = Uri.parse(Config().apiBaseUrl + 'login/Authentication/create_otp');
     var body = json.encode({
-          "phone": phone,
+          "mobile": mobile,
         });
 
     Map<String,String> headers = {
@@ -34,11 +34,11 @@ class Authentication {
 
   static confirmOtp ( otp ) async {
     final prefs = await SharedPreferences.getInstance();
-    var phone = prefs.getString('user_phone') ;
+    var mobile = prefs.getString('user_mobile') ;
 
     final uri = Uri.parse(Config().apiBaseUrl + 'login/Authentication/confirm_otp');
     var body = json.encode({
-      "phone": phone,
+      "mobile": mobile,
       "otp" : otp
     });
 
@@ -55,8 +55,8 @@ class Authentication {
       var status = jsonDecode(responseBody)['status'];
       if( status == true )
         {
-          var userId = jsonDecode(responseBody)['customer_id'];
-          var userToken = jsonDecode(responseBody)['customer_token'];
+          var userId = jsonDecode(responseBody)['user_id'];
+          var userToken = jsonDecode(responseBody)['user_token'];
           prefs.setString('user_id', userId);
           prefs.setString('user_token', userToken);
           return true;

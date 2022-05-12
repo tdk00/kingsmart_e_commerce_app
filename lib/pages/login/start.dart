@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kingsmart_online_app/pages/login/login_type_phone.dart';
-import 'package:kingsmart_online_app/pages/login/login_type_selection.dart';
+import 'package:kingsmart_online_app/pages/login/login_type_mobile.dart';
 
 import '../../Color.dart';
 
@@ -65,7 +64,7 @@ class Start extends StatelessWidget {
                     ),
                     onPressed: () {
                       Navigator.pushAndRemoveUntil(context,
-                          MaterialPageRoute(builder: (_) => LoginTypePhone()), (route) => false);
+                          MaterialPageRoute(builder: (_) => LoginTypeMobile()), (route) => false);
                     }),
               ),
             ),
