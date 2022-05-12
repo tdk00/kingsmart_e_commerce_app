@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 import 'package:kingsmart_online_app/Color.dart';
-import 'snake_navigation.dart';
-//import 'package:flutter_snake_navigationbar_example/custom_icons.dart';
 
 int _selectedItemPosition = 0;
 

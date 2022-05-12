@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:kingsmart_online_app/pages/login/otp.dart';
+import 'package:kingsmart_online_app/screens/login/otp.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import '../../Color.dart';
 import '../../helpers/validators.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kingsmart_online_app/pages/login/login_type_mobile.dart';
+import 'package:kingsmart_online_app/screens/login/login_type_mobile.dart';
 
 import '../../Color.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kingsmart_online_app/Color.dart';
-import 'package:kingsmart_online_app/pages/login/login_type_mobile.dart';
+import 'package:kingsmart_online_app/screens/login/login_type_mobile.dart';
 
 class LoginTypeSelection extends StatelessWidget {
   const LoginTypeSelection({Key? key}) : super(key: key);

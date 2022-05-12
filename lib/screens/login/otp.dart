@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kingsmart_online_app/Color.dart';
-import 'package:kingsmart_online_app/pages/main/snake_navigation.dart';
+import 'package:kingsmart_online_app/screens/main/snake_navigation.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
 
