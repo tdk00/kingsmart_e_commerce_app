@@ -4,6 +4,7 @@ import 'package:kingsmart_online_app/pages/login/otp.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import '../../Color.dart';
 import '../../helpers/validators.dart';
+import '../../services/authentication/authentication.dart';
 
 class LoginTypePhone extends StatelessWidget {
 
@@ -147,11 +148,18 @@ class LoginTypePhone extends StatelessWidget {
                       ),
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Processing Data')),
-                          );
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (_) => Otp()));
+                          bool created = await Authentication.createOtp( phoneController.text );
+                          if( created )
+                            {
+                              Navigator.push(context,  MaterialPageRoute(builder: (_) => Otp()));
+                            }
+                          else
+                          {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Səhv yarandı'), backgroundColor: Colors.red,),
+                            );
+                          }
+
                         }
                       }),
                 ),

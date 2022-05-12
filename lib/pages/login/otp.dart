@@ -1,11 +1,11 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kingsmart_online_app/Color.dart';
 import 'package:kingsmart_online_app/pages/main/snake_navigation.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
+
+import '../../services/authentication/authentication.dart';
 
 class Otp extends StatelessWidget {
   @override
@@ -123,8 +123,18 @@ class Otp extends StatelessWidget {
                     textFieldAlignment: MainAxisAlignment.spaceAround,
                     fieldStyle: FieldStyle.box,
                     onCompleted: (pin) async {
-                      Navigator.pushAndRemoveUntil(context,
-                          MaterialPageRoute(builder: (_) =>  SnakeNavigation()), (route) => false);
+                      bool confirmed = await Authentication.confirmOtp( pin );
+                      if( confirmed )
+                      {
+                        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) =>  SnakeNavigation()), (route) => false);
+                      }
+                      else
+                      {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('OTP səhvdir və ya vaxtı bitmişdir'), backgroundColor: Colors.red,),
+                        );
+                      }
+
                     },
                   ),
                 ),
