@@ -4,7 +4,7 @@ import 'package:kingsmart_online_app/screens/login/otp.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import '../../Color.dart';
 import '../../helpers/validators.dart';
-import '../../services/authentication/authentication.dart';
+import '../../services/authentication.dart';
 
 class LoginTypeMobile extends StatelessWidget {
 

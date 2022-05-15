@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kingsmart_online_app/screens/login/start.dart';
+import 'package:kingsmart_online_app/screens/main/logged_in_user.dart';
 import 'package:kingsmart_online_app/state_data.dart';
 import 'package:provider/provider.dart';
 
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
 
-      title: 'Flutter Demo',
+      title: 'Kingsmart App',
       theme: ThemeData(
         textTheme: TextTheme(
           bodyText1: TextStyle(
@@ -39,6 +40,7 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Start();
+
+    return LoggedInUser();
   }
 }

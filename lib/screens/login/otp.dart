@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kingsmart_online_app/Color.dart';
+import 'package:kingsmart_online_app/screens/main/logged_in_user.dart';
 import 'package:kingsmart_online_app/screens/main/snake_navigation.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
+import 'package:provider/provider.dart';
 
-import '../../services/authentication/authentication.dart';
+import '../../models/shopping_cart_model.dart';
+import '../../services/authentication.dart';
+import '../../services/shopping_cart_service.dart';
 
 class Otp extends StatelessWidget {
   @override
@@ -39,7 +43,7 @@ class Otp extends StatelessWidget {
                                   Icons.arrow_back_ios_outlined,
                                   color: CustomColors().kingsRed,
                                   size:
-                                  MediaQuery.of(context).size.width / 31.25,
+                                      MediaQuery.of(context).size.width / 31.25,
                                 ),
                               ),
                             ),
@@ -59,7 +63,7 @@ class Otp extends StatelessWidget {
                         style: GoogleFonts.montserrat(
                             textStyle: TextStyle(
                                 fontSize:
-                                MediaQuery.of(context).size.width / 15.7),
+                                    MediaQuery.of(context).size.width / 15.7),
                             fontWeight: FontWeight.w600),
                       ),
                     ),
@@ -123,18 +127,22 @@ class Otp extends StatelessWidget {
                     textFieldAlignment: MainAxisAlignment.spaceAround,
                     fieldStyle: FieldStyle.box,
                     onCompleted: (pin) async {
-                      bool confirmed = await Authentication.confirmOtp( pin );
-                      if( confirmed )
-                      {
-                        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) =>  SnakeNavigation()), (route) => false);
-                      }
-                      else
-                      {
+                      bool confirmed = await Authentication.confirmOtp(pin);
+                      if (confirmed) {
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => LoggedInUser()
+                            ),
+                            (route) => false);
+                      } else {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('OTP səhvdir və ya vaxtı bitmişdir'), backgroundColor: Colors.red,),
+                          const SnackBar(
+                            content: Text('OTP səhvdir və ya vaxtı bitmişdir'),
+                            backgroundColor: Colors.red,
+                          ),
                         );
                       }
-
                     },
                   ),
                 ),
