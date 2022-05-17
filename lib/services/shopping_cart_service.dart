@@ -4,8 +4,6 @@ import 'package:http/http.dart' as http;
 import 'package:kingsmart_online_app/models/product_model.dart';
 import 'package:kingsmart_online_app/models/shopping_cart_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../models/bonus_cart.dart';
 import 'config.dart';
 
 
@@ -32,21 +30,12 @@ class ShoppingCartService {
     if ( statusCode == 200 ) {
       if( jsonDecode(responseBody)['status'] == true )
       {
-        var data = jsonDecode(responseBody)['data'];
+        var cart = jsonDecode(responseBody)['data'];
         // print(data);
-        for( var item in data['items'] ) {
-          print( item['details']['isFavorite'].toString() + "buuu");
-          a.increaseProduct(
-              ProductModel(
-                  item['details']['id'].toString(),
-                  item['details']['title'].toString(),
-                  item['details']['summary'].toString(),
-                  item['details']['image'].toString(),
-                  double.parse(item['details']['price'].toString()),
-                  double.parse(item['details']['discount'].toString()),
-                  int.parse(item['details']['isFavorite'].toString()) > 0 )
-          );
-
+        for( var item in cart['items'] )
+        {
+          var quantity = item['quantity'] ?? "0";
+          a.addToCartWithQuantity( ProductModel.fromJson( item['details'] ), int.parse( quantity ) );
         }
       }
 
@@ -61,7 +50,7 @@ class ShoppingCartService {
     var userId = prefs.getString('user_id');
     final uri = Uri.parse(Config().apiBaseUrl + 'main/ShoppingCart/update_cart');
     Map<String, int> shoppingCartProducts = {};
-    shoppingCart.shoppingCartItems.forEach((k,v) => shoppingCartProducts[k.id.toString()] = v );
+    shoppingCart.shoppingCartItems.forEach((productModel,productCount) => shoppingCartProducts[ productModel.id.toString()] = productCount );
 
     var body = jsonEncode({
       "items": (shoppingCartProducts),
@@ -73,15 +62,7 @@ class ShoppingCartService {
       'Accept': 'application/json',
     };
 
-    Response response = await http.post(uri, body: body, headers: headers);
-    // int statusCode = response.statusCode;
-    String responseBody = response.body;
-
-    print(responseBody);
-    // if ( statusCode == 200 ) {
-    //   print( jsonDecode(responseBody) ) ;
-    // }
-    return ShoppingCartModel();
+    await http.post(uri, body: body, headers: headers);
 
   }
 

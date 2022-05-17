@@ -4,8 +4,6 @@ import 'package:kingsmart_online_app/Color.dart';
 import 'package:kingsmart_online_app/models/product_model.dart';
 import 'package:kingsmart_online_app/models/shopping_cart_model.dart';
 import 'package:kingsmart_online_app/screens/main/main_screen/main_screeen.dart';
-import 'package:kingsmart_online_app/services/bonus_card_service.dart';
-import 'package:kingsmart_online_app/services/reference_slider_service.dart';
 import 'package:kingsmart_online_app/services/shopping_cart_service.dart';
 import 'package:provider/provider.dart';
 
@@ -43,8 +41,7 @@ class _SnakeNavigationState extends State<SnakeNavigation> {
         child: PageView(
           controller: _pageController,
           onPageChanged: (int page ) async {
-           await ShoppingCartService.updateShoppingCart(shoppingCart);
-           shoppingCart.addFirstItemToBasket(ProductModel("3", 'title', 'summary', 'image', 2.3, 3.4, true));
+            ShoppingCartService.updateShoppingCart( shoppingCart );
             List itemPositions = [0, 1, 2, 3];
             if (itemPositions.contains(page)) {
               setState(() {

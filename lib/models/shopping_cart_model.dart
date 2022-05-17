@@ -10,7 +10,7 @@ class ShoppingCartModel with ChangeNotifier {
     } else {
       double _total = 0;
       shoppingCartItems.forEach((key, value) {
-        _total += (key.price - key.discount) * value;
+        _total += (key.price) * value;
       });
       return _total;
     }
@@ -20,28 +20,65 @@ class ShoppingCartModel with ChangeNotifier {
     return shoppingCartItems.length;
   }
 
-  void addFirstItemToBasket(ProductModel product) {
-    shoppingCartItems[product] = 1;
+  void addFirstItemToCart(ProductModel product, count) {
+    shoppingCartItems[product] = count;
+    notifyListeners();
+  }
+
+  void addToCartWithQuantity(ProductModel product, int count) {
+    bool productIsInCart = false;
+    shoppingCartItems.forEach( ( productModel, productCount ) {
+      if( productModel.id == product.id )
+      {
+        shoppingCartItems[productModel] = shoppingCartItems[productModel] !+ productCount;
+        productIsInCart = true;
+      }
+    } );
+
+    if( ! productIsInCart ) {
+      addFirstItemToCart(product, count);
+      return;
+    }
     notifyListeners();
   }
 
   void increaseProduct(ProductModel product) {
-    if (shoppingCartItems[product] == null) {
-      addFirstItemToBasket(product);
+    bool productIsInCart = false;
+    shoppingCartItems.forEach( ( productModel, productCount ) {
+      if( productModel.id == product.id )
+        {
+          shoppingCartItems[productModel] = shoppingCartItems[productModel] !+ 1;
+          productIsInCart = true;
+        }
+    } );
+
+    if( ! productIsInCart ) {
+      addFirstItemToCart(product, 1);
       return;
-    } else {
-      shoppingCartItems[product] = shoppingCartItems[product] !+ 1;
     }
     notifyListeners();
   }
 
   void decreaseProduct(ProductModel product) {
-    if (shoppingCartItems[product] == null) return;
-    if (shoppingCartItems[product] == 0) {
-      shoppingCartItems.removeWhere((key, value) => key == product);
-    } else {
-      shoppingCartItems[product] = shoppingCartItems[product] !- 1;
-    }
+    var shouldRemove;
+    shoppingCartItems.forEach( ( productModel, productCount ) {
+      if( productModel.id == product.id )
+      {
+        if (shoppingCartItems[productModel] == null) return;
+
+        if (shoppingCartItems[productModel] == 1) {
+          shouldRemove = productModel;
+        } else {
+          shoppingCartItems[productModel] = shoppingCartItems[productModel] !- 1;
+        }
+      }
+    } );
+
+    if( shouldRemove != null )
+      {
+        shoppingCartItems.removeWhere((key, value) => key == shouldRemove);
+      }
+
     notifyListeners();
   }
 

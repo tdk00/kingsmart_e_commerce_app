@@ -22,8 +22,6 @@ class LoggedInUser extends StatelessWidget {
         FutureProvider<BonusKart>(create: (context) => BonusCardService.getDetails(), initialData: BonusKart("0","0","0", "loading") ),
         FutureProvider<List<ReferenceSliderModel>>(create: (context) => ReferenceSliderService.getDetails(), initialData: [] ),
         FutureProvider<ShoppingCartModel>(create: (context) => ShoppingCartService.getShoppingCart(), initialData: ShoppingCartModel(), ),
-
-
       ],
       child: SnakeNavigation(),
     );
