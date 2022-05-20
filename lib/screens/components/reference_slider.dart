@@ -9,6 +9,10 @@ class ReferenceSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+    var padding = MediaQuery.of(context).viewPadding;
+    double height1 = height - padding.top - kToolbarHeight;
     List<ReferenceSliderModel> slidersModelList = Provider.of<List<ReferenceSliderModel>>(context);
     List<Widget> widgetSliders = [];
 
@@ -17,14 +21,14 @@ class ReferenceSlider extends StatelessWidget {
       widgetSliders.add( ReferenceSliderWidget( slidersModelList[i] ) );
     }
 
-    return  CarouselSlider(
+    return CarouselSlider(
       items: widgetSliders,
       options: CarouselOptions(
           viewportFraction: 1,
           autoPlay: false,
           enableInfiniteScroll: false,
           enlargeCenterPage: true,
-          aspectRatio: 3.5,
+          aspectRatio: 4.5,
           onPageChanged: (index, reason) {
 
           }),
@@ -48,7 +52,6 @@ class ReferenceSliderWidget extends StatelessWidget {
       ),
       child: SizedBox(
         width: MediaQuery.of(context).size.width / 1.13,
-        height: MediaQuery.of(context).size.height / 5.23,
         child: Row(
           children: [
             Column(
@@ -74,8 +77,7 @@ class ReferenceSliderWidget extends StatelessWidget {
                   width: MediaQuery.of(context).size.width / 1.94,
                   padding: EdgeInsets.only(
                       left: MediaQuery.of(context).size.width / 23.14,
-                      top:
-                      MediaQuery.of(context).size.height / 83.14),
+                      top: MediaQuery.of(context).size.height / 183.14),
                   child: Text(
                     slider.summary,
                     style: GoogleFonts.montserrat(
@@ -91,8 +93,7 @@ class ReferenceSliderWidget extends StatelessWidget {
                   width: MediaQuery.of(context).size.width / 1.94,
                   padding: EdgeInsets.only(
                       left: MediaQuery.of(context).size.width / 23.14,
-                      top:
-                      MediaQuery.of(context).size.height / 83.14),
+                      top: MediaQuery.of(context).size.height / 183.14),
                   child: Row(
                     children: [
                       GestureDetector(
@@ -127,11 +128,12 @@ class ReferenceSliderWidget extends StatelessWidget {
               ],
             ),
             SizedBox(
-                width: MediaQuery.of(context).size.width / 11.125),
+                width: MediaQuery.of(context).size.width / 9.125),
             SizedBox(
-              height: MediaQuery.of(context).size.width / 3.125,
+              height: MediaQuery.of(context).size.height / 12.125,
               child: Tab(
                 icon: Image(
+                  fit: BoxFit.fitHeight,
                   image: NetworkImage(
                     slider.icon,
                   ),

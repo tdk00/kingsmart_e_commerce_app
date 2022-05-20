@@ -1,15 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kingsmart_online_app/models/bonus_cart.dart';
+import 'package:kingsmart_online_app/models/favorite_products_model.dart';
+import 'package:kingsmart_online_app/models/product_model.dart';
+import 'package:kingsmart_online_app/models/promo_products_model.dart';
 import 'package:kingsmart_online_app/screens/components/header.dart';
 import 'package:kingsmart_online_app/screens/components/reference_slider.dart';
+import 'package:kingsmart_online_app/screens/main/main_screen/favorite_products.dart';
 import 'package:kingsmart_online_app/screens/main/main_screen/slide_panel/bonus_card_slider/main.dart';
+import 'package:kingsmart_online_app/screens/main/main_screen/trend_categories.dart';
+import 'package:kingsmart_online_app/services/favorite_products_service.dart';
 import 'package:kingsmart_online_app/state_datas/main_screen/slide_panel/state_data_slide_panel.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import '../../../Color.dart';
+import '../../../models/category_model.dart';
+import '../../../services/category_service.dart';
+import '../../../services/promos_service.dart';
+import 'main_screen_promos.dart';
 
 class MainScreen extends StatelessWidget {
 
@@ -25,6 +35,7 @@ class MainScreen extends StatelessWidget {
           child: SlidingUpPanel(
             parallaxEnabled: true,
             //minHeight: 90,
+            maxHeight: MediaQuery.of(context).size.height,
             parallaxOffset: .5,
             backdropEnabled: true,
             onPanelClosed: () {
@@ -101,14 +112,18 @@ class MainScreen extends StatelessWidget {
                 ),
               ),
             ),
-            body: Body(),
+            body: MultiProvider(providers: [
+              FutureProvider<FavoriteProductsModel>(create: (context) => FavoriteProductsService.getFavoriteProducts( 6 ), initialData: FavoriteProductsModel()) ,
+              FutureProvider<PromoProductsModel>(create: (context) => PromosService.getPromoProducts( 6 ), initialData: PromoProductsModel()) ,
+            ],
+            child: Body()),
             collapsed: Column(
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
                     width: 30,
-                    height: 5,
+                    height: 2,
                     decoration: BoxDecoration(
                         color: Color(0xFFCDCDCF),
                         borderRadius: BorderRadius.circular(15)),
@@ -120,9 +135,7 @@ class MainScreen extends StatelessWidget {
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          child: Image.asset("assets/buttons/wallet.png"),
-                        ),
+                        child: Image.asset("assets/buttons/wallet.png"),
                       ),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -130,13 +143,12 @@ class MainScreen extends StatelessWidget {
                         children: [
                           Padding(
                             padding: const EdgeInsets.all(3.0),
-                            child: Container(
-                                child: Text(
-                                  "Sizin keşbek məbləğiniz",
-                                  style: GoogleFonts.montserrat(
-                                      textStyle: TextStyle(),
-                                      color: Color(0xFFEA0029)),
-                                )),
+                            child: Text(
+                              "Sizin keşbek məbləğiniz",
+                              style: GoogleFonts.montserrat(
+                                  textStyle: TextStyle(),
+                                  color: Color(0xFFEA0029)),
+                            ),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(
@@ -162,7 +174,6 @@ class MainScreen extends StatelessWidget {
                 ),
               ],
             ),
-            maxHeight: MediaQuery.of(context).size.height,
           ),
         ),
     );
@@ -172,20 +183,28 @@ class MainScreen extends StatelessWidget {
 class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: ListView(
-          scrollDirection: Axis.vertical,
-          children: [
-            Header(true, ""),
-            ReferenceSlider(),
-            Text("sagool"),
-            Text("sagool"),
-            Text("sagool"),
-            SizedBox(
-              height: 150,
-            )
-          ],
-        )
+    print(MediaQuery.of(context).size.height);
+    return SizedBox(
+      child: CustomScrollView(
+        scrollDirection: Axis.vertical,
+        slivers: [
+          SliverFillRemaining(
+            hasScrollBody: false,
+            child: Column(
+              children: [
+                Expanded(flex: 128, child: Header(true, "")),
+                Expanded(flex: 85, child: ReferenceSlider()),
+                Expanded(flex:15 ,child: SizedBox()),
+                FavoriteProducts(),
+                TrendCategories(),
+                MainScreenPromos(),// promotions
+                Expanded(flex: 170,child: SizedBox()),
+              ],
+            ),
+          )
+
+        ],
+      ),
     );
   }
 }

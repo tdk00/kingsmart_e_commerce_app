@@ -30,8 +30,8 @@ class ShoppingCartService {
     if ( statusCode == 200 ) {
       if( jsonDecode(responseBody)['status'] == true )
       {
+        a.clearShoppingCart();
         var cart = jsonDecode(responseBody)['data'];
-        // print(data);
         for( var item in cart['items'] )
         {
           var quantity = item['quantity'] ?? "0";
@@ -45,15 +45,16 @@ class ShoppingCartService {
   }
 
   static updateShoppingCart( shoppingCart ) async {
-
+    if( shoppingCart.isModified == false ) return;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var userId = prefs.getString('user_id');
     final uri = Uri.parse(Config().apiBaseUrl + 'main/ShoppingCart/update_cart');
     Map<String, int> shoppingCartProducts = {};
     shoppingCart.shoppingCartItems.forEach((productModel,productCount) => shoppingCartProducts[ productModel.id.toString()] = productCount );
 
+    shoppingCart.isModified = false;
     var body = jsonEncode({
-      "items": (shoppingCartProducts),
+      "items": shoppingCartProducts,
       "user_id": 3,
     });
 

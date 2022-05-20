@@ -1,10 +1,14 @@
-class ProductModel {
+import 'dart:ffi';
+
+import 'package:flutter/cupertino.dart';
+
+class ProductModel extends ChangeNotifier{
   final int id;
   final String barkod, title, summary, image;
   final double price, oldPrice,  discount;
-  final bool isFavorite;
+  bool isFavorite;
 
-  const ProductModel({
+    ProductModel({
     required this.id,
     required this.barkod,
     required this.title,
@@ -47,4 +51,9 @@ class ProductModel {
         'discount': discount,
         'isFavorite': isFavorite,
       };
+
+    void toggleIsFavorite( bool status ){
+      isFavorite = status;
+      notifyListeners();
+    }
 }

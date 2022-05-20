@@ -3,6 +3,12 @@ import 'package:kingsmart_online_app/models/product_model.dart';
 
 class ShoppingCartModel with ChangeNotifier {
   Map<ProductModel, int> shoppingCartItems = {};
+  bool isModified = false;
+
+  void clearShoppingCart(){
+    shoppingCartItems = {};
+  }
+
 
   double get basketTotalMoney {
     if (shoppingCartItems.isEmpty) {
@@ -20,7 +26,19 @@ class ShoppingCartModel with ChangeNotifier {
     return shoppingCartItems.length;
   }
 
+  int getQuantityInShoppingCart( ProductModel product ) {
+    int count = 0;
+    shoppingCartItems.forEach( ( productModel, productCount ) {
+      if( productModel.id == product.id )
+      {
+          count = productCount;
+      }
+    } );
+    return count;
+  }
+
   void addFirstItemToCart(ProductModel product, count) {
+    isModified = true;
     shoppingCartItems[product] = count;
     notifyListeners();
   }
@@ -30,6 +48,7 @@ class ShoppingCartModel with ChangeNotifier {
     shoppingCartItems.forEach( ( productModel, productCount ) {
       if( productModel.id == product.id )
       {
+        isModified = false;
         shoppingCartItems[productModel] = shoppingCartItems[productModel] !+ productCount;
         productIsInCart = true;
       }
@@ -37,9 +56,9 @@ class ShoppingCartModel with ChangeNotifier {
 
     if( ! productIsInCart ) {
       addFirstItemToCart(product, count);
+      isModified = false;
       return;
     }
-    notifyListeners();
   }
 
   void increaseProduct(ProductModel product) {
@@ -47,6 +66,7 @@ class ShoppingCartModel with ChangeNotifier {
     shoppingCartItems.forEach( ( productModel, productCount ) {
       if( productModel.id == product.id )
         {
+          isModified = true;
           shoppingCartItems[productModel] = shoppingCartItems[productModel] !+ 1;
           productIsInCart = true;
         }
@@ -67,8 +87,10 @@ class ShoppingCartModel with ChangeNotifier {
         if (shoppingCartItems[productModel] == null) return;
 
         if (shoppingCartItems[productModel] == 1) {
+          isModified = true;
           shouldRemove = productModel;
         } else {
+          isModified = true;
           shoppingCartItems[productModel] = shoppingCartItems[productModel] !- 1;
         }
       }
