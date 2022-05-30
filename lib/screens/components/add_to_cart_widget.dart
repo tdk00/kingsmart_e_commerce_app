@@ -7,14 +7,20 @@ import '../../models/shopping_cart_model.dart';
 
 class AddToCartWidget extends StatelessWidget {
   ProductModel productModel;
-  AddToCartWidget({ required this.productModel});
+  bool shoppingCartView;
+  AddToCartWidget({ required this.productModel, required this.shoppingCartView});
   @override
   Widget build(BuildContext context) {
     ShoppingCartModel shoppingCart = Provider.of<ShoppingCartModel>(context);
     int quantityInBasket = shoppingCart.getQuantityInShoppingCart( productModel );
+    double screenWidth = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+    var padding = MediaQuery.of(context).viewPadding;
+    double height1 = height - padding.top - kToolbarHeight;
     return quantityInBasket < 1
         ?  SizedBox(
-      width: MediaQuery.of(context).size.width / 2.8,
+      width: screenWidth / 2.8,
+      height: ! shoppingCartView ? height1 / 16.7 : height1 / 26.7,
       child: OutlinedButton(
           style: ElevatedButton.styleFrom(
             primary: Colors.white,
@@ -23,7 +29,7 @@ class AddToCartWidget extends StatelessWidget {
               side: BorderSide(
                   color: Colors.grey.shade200, width: 1),
               borderRadius: BorderRadius.circular(
-                  MediaQuery.of(context).size.width / 51.5),
+                  screenWidth / 51.5),
             ),
           ),
           child: Column(
@@ -31,16 +37,13 @@ class AddToCartWidget extends StatelessWidget {
               Expanded(
                 flex: 1,
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: ! shoppingCartView ? EdgeInsets.only(top: height1 / 55 ) : EdgeInsets.only(top: height1 / 90 ),
                   child: Text(
                     "Əlavə Et",
                     textAlign: TextAlign.center,
                     style: GoogleFonts.montserrat(
                         textStyle: TextStyle(
-                          fontSize: MediaQuery.of(context)
-                              .size
-                              .width /
-                              26.43,
+                          fontSize:  ! shoppingCartView ? screenWidth / 26.43 : screenWidth / 36.43,
                         ),
                         color: Colors.black),
                   ),
@@ -55,12 +58,12 @@ class AddToCartWidget extends StatelessWidget {
         : Container(
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(
-              MediaQuery.of(context).size.width / 51.5),
+              screenWidth / 51.5),
           border: Border.all(
             color: Colors.grey.shade200,
           )),
-      width: MediaQuery.of(context).size.width / 2.8,
-      height: MediaQuery.of(context).size.width / 11.7,
+      width: screenWidth / 2.8,
+      height: height1 / 20.7,
       child: Row(
         children: [
           Expanded(
@@ -73,8 +76,7 @@ class AddToCartWidget extends StatelessWidget {
                   style: GoogleFonts.montserrat(
                       textStyle: TextStyle(
                         fontSize:
-                        MediaQuery.of(context).size.width /
-                            15,
+                        ! shoppingCartView ?  screenWidth / 15 : screenWidth / 19,
                       ),
                       color: Colors.black)),
             ),
@@ -85,8 +87,7 @@ class AddToCartWidget extends StatelessWidget {
                 style: GoogleFonts.montserrat(
                     textStyle: TextStyle(
                       fontSize:
-                      MediaQuery.of(context).size.width /
-                          26.43,
+                      ! shoppingCartView ?  screenWidth / 26.43 :  screenWidth / 36.43,
                     ),
                     color: Colors.black)),
           ),
@@ -100,8 +101,7 @@ class AddToCartWidget extends StatelessWidget {
                   style: GoogleFonts.montserrat(
                       textStyle: TextStyle(
                         fontSize:
-                        MediaQuery.of(context).size.width /
-                            15,
+                        ! shoppingCartView ?  screenWidth / 15 : screenWidth / 19,
                       ),
                       color: Colors.black)),
             ),

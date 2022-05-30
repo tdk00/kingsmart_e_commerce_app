@@ -104,6 +104,25 @@ class ShoppingCartModel with ChangeNotifier {
     notifyListeners();
   }
 
+  void deleteProductFromShoppingCart(ProductModel product) {
+    ProductModel? deleteModel;
+    shoppingCartItems.forEach( ( productModel, productCount ) {
+      if( productModel.id == product.id )
+      {
+        if (shoppingCartItems[productModel] == null) return;
+
+        deleteModel = productModel;
+
+      }
+    } );
+
+    if( deleteModel != null) {
+      shoppingCartItems.removeWhere((key, value) => key == deleteModel);
+    }
+
+    notifyListeners();
+  }
+
   Map<String, dynamic> toJson() =>
       {
         'items': shoppingCartItems

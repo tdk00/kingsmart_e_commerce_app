@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 import 'package:kingsmart_online_app/Color.dart';
-import 'package:kingsmart_online_app/models/product_model.dart';
 import 'package:kingsmart_online_app/models/shopping_cart_model.dart';
 import 'package:kingsmart_online_app/screens/main/main_screen/main_screeen.dart';
 import 'package:kingsmart_online_app/services/shopping_cart_service.dart';
 import 'package:provider/provider.dart';
-
-import '../../models/bonus_cart.dart';
-import '../../models/reference_slider_model.dart';
-import '../../state_datas/main_screen/slide_panel/state_data_slide_panel.dart';
+import '../store/store_screen.dart';
 
 int _selectedItemPosition = 0;
 
@@ -53,10 +49,7 @@ class _SnakeNavigationState extends State<SnakeNavigation> {
             },
             children: <Widget>[
               MainScreen(),
-              Container(
-                color: Colors.grey,
-                width: 100,
-              ),
+              StoreScreen(),
               Container(
                 color: Colors.green,
                 width: 100,

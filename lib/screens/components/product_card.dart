@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kingsmart_online_app/models/favorite_products_model.dart';
-import 'package:kingsmart_online_app/models/shopping_cart_model.dart';
 import 'package:kingsmart_online_app/screens/components/add_to_cart_widget.dart';
 import 'package:kingsmart_online_app/services/favorite_products_service.dart';
 import 'package:provider/provider.dart';
@@ -127,7 +126,7 @@ class ProductCard extends StatelessWidget {
                   ),
                 ),
               ),
-              Expanded(flex: 12,child: AddToCartWidget(productModel: productModel,)),
+              Expanded(flex: 12,child: AddToCartWidget(productModel: productModel, shoppingCartView: false,)),
               Expanded(flex: 5,child: SizedBox())
             ],
           ),

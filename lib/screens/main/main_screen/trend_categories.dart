@@ -1,62 +1,91 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kingsmart_online_app/Color.dart';
 import 'package:kingsmart_online_app/models/category_model.dart';
 import 'package:provider/provider.dart';
 
 import '../../../services/config.dart';
 
 class TrendCategories extends StatelessWidget {
+  final bool showAllButton;
+  final Color mainTitleColor;
+  final Color categoryTitleColor;
+  final String mainTitleText;
+  TrendCategories({required this.showAllButton, required this.mainTitleColor, required this.categoryTitleColor, required this.mainTitleText });
   @override
   Widget build(BuildContext context) {
     List<CategoryModel> categoryList = Provider.of<List<CategoryModel>>(context);
+    double screenWidth = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+    var padding = MediaQuery.of(context).viewPadding;
+    double height1 = height - padding.top - kToolbarHeight;
     if( categoryList.isEmpty ){
       return Expanded(flex: 0, child: Container());
     }
-    return Expanded(
-      flex: 141,
-      child: Container(
-        padding: EdgeInsets.only(
-          left: MediaQuery.of(context).size.width / 17.4,
-        ),
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              flex: 1,
-              child: Container(
-                padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height / 40,
-                    bottom: MediaQuery.of(context).size.height / 40),
-                child: Align(
+    return Container(
+      height: height1 / 4.2,
+      padding: EdgeInsets.only(
+        left: screenWidth / 17.4,
+        top: height1 / 64.2,
+      ),
+      child: Column(
+        children: <Widget>[
+          Expanded(
+            flex: 1,
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 4,
+                  child: Align(
                   alignment: Alignment.topLeft,
                   child: Text(
-                    "Məşhur Kateqoriyalar",
+                  mainTitleText,
                     textAlign: TextAlign.left,
                     style: GoogleFonts.montserrat(
                         textStyle: TextStyle(
-                          fontSize: MediaQuery.of(context).size.width / 20.43,
+                          fontSize: screenWidth / 26.43,
                         ),
-                        color: Colors.white),
+                        color: categoryTitleColor),
                   ),
+              ),
                 ),
-              ),
+                showAllButton ?  Expanded(
+                  flex: 4,
+                  child: Container(
+                    padding: EdgeInsets.only(right: screenWidth / 56.43),
+                    child: Align(
+                      alignment: Alignment.topRight,
+                      child: Text(
+                        "Bütün Kateqoriyalar",
+                        textAlign: TextAlign.right,
+                        style: GoogleFonts.montserrat(
+                            textStyle: TextStyle(
+                              fontSize: screenWidth / 26.43,
+                            ),
+                            color: CustomColors().kingsRed),
+                      ),
+                    ),
+                  ),
+                ):
+                    Expanded(flex: 0, child: SizedBox())
+            ]
             ),
-            Expanded(
-              flex: 2,
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height:  MediaQuery.of(context).size.height * .14,
-                child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: categoryList.length ,
-                    itemBuilder: (context, i) {
-                      return TrendCategoryCard(categoryModel: categoryList[i]);
-                    }),
+          ),
+          Expanded(
+            flex: 4,
+            child: SizedBox(
+              width: screenWidth,
+              height:  MediaQuery.of(context).size.height * .14,
+              child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: categoryList.length ,
+                  itemBuilder: (context, i) {
+                    return TrendCategoryCard(categoryModel: categoryList[i], titleColor: categoryTitleColor);
+                  }),
 
-              ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -64,8 +93,10 @@ class TrendCategories extends StatelessWidget {
 
 class TrendCategoryCard extends StatelessWidget {
   final CategoryModel categoryModel;
-  const TrendCategoryCard({required this.categoryModel});
+  final Color titleColor;
+  const TrendCategoryCard({required this.categoryModel, required this.titleColor});
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
     return InkWell(
       onTap: () {
       },
@@ -90,7 +121,7 @@ class TrendCategoryCard extends StatelessWidget {
           ),
           Expanded(
             child: Container(
-              width: MediaQuery.of(context).size.width / 5.3,
+              width: screenWidth / 5.3,
               margin:
               EdgeInsets.only(top: MediaQuery.of(context).size.height / 90),
               child: Text(
@@ -98,9 +129,9 @@ class TrendCategoryCard extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: GoogleFonts.montserrat(
                     textStyle: TextStyle(
-                      fontSize: MediaQuery.of(context).size.width / 26.43,
+                      fontSize: screenWidth / 26.43,
                     ),
-                    color: Colors.white),
+                    color: titleColor),
               ),
             ),
           ),

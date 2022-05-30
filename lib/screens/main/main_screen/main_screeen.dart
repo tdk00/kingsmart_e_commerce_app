@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kingsmart_online_app/models/bonus_cart.dart';
 import 'package:kingsmart_online_app/models/favorite_products_model.dart';
-import 'package:kingsmart_online_app/models/product_model.dart';
 import 'package:kingsmart_online_app/models/promo_products_model.dart';
-import 'package:kingsmart_online_app/screens/components/header.dart';
 import 'package:kingsmart_online_app/screens/components/reference_slider.dart';
 import 'package:kingsmart_online_app/screens/main/main_screen/favorite_products.dart';
 import 'package:kingsmart_online_app/screens/main/main_screen/slide_panel/bonus_card_slider/main.dart';
@@ -16,9 +14,9 @@ import 'package:shimmer/shimmer.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import '../../../Color.dart';
-import '../../../models/category_model.dart';
-import '../../../services/category_service.dart';
 import '../../../services/promos_service.dart';
+import '../../components/header_with_logo.dart';
+import '../../components/search_input.dart';
 import 'main_screen_promos.dart';
 
 class MainScreen extends StatelessWidget {
@@ -192,13 +190,15 @@ class Body extends StatelessWidget {
             hasScrollBody: false,
             child: Column(
               children: [
-                Expanded(flex: 128, child: Header(true, "")),
-                Expanded(flex: 85, child: ReferenceSlider()),
-                Expanded(flex:15 ,child: SizedBox()),
+                HeaderWithLogo(),
+                SearchInput(),
+                SizedBox(height: MediaQuery.of(context).size.height / 80,),
+                ReferenceSlider(),
+                SizedBox(height: MediaQuery.of(context).size.height / 80,),
                 FavoriteProducts(),
-                TrendCategories(),
+                TrendCategories(showAllButton: false, mainTitleColor: Colors.white, categoryTitleColor: Colors.white, mainTitleText: "Məşhur kateqoriyalar",),
                 MainScreenPromos(),// promotions
-                Expanded(flex: 170,child: SizedBox()),
+                SizedBox(height: MediaQuery.of(context).size.height / 3,),
               ],
             ),
           )

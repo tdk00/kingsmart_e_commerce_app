@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kingsmart_online_app/screens/login/start.dart';
 import 'package:kingsmart_online_app/screens/main/logged_in_user.dart';
+import 'package:kingsmart_online_app/screens/shopping_cart/shopping_cart_screen.dart';
 import 'package:kingsmart_online_app/state_data.dart';
 import 'package:provider/provider.dart';
 
@@ -22,7 +23,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-
+      routes: {
+        '/shoppingCartScreen': (context) => ShoppingCartScreen(),
+      },
       title: 'Kingsmart App',
       theme: ThemeData(
         textTheme: TextTheme(
