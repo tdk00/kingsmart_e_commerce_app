@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 
 import '../../models/product_model.dart';
 import '../../models/promo_products_model.dart';
+import '../../models/shopping_cart_model.dart';
 import '../../services/config.dart';
 
 class ProductCard extends StatelessWidget {
@@ -18,9 +19,7 @@ class ProductCard extends StatelessWidget {
 
 
   Widget build(BuildContext context) {
-    ProductModel productModelProvider = Provider.of<ProductModel>(context);
-    FavoriteProductsModel favoriteProductsModel = Provider.of<FavoriteProductsModel>(context);
-    PromoProductsModel promoProductsModel = Provider.of<PromoProductsModel>(context);
+    ShoppingCartModel shoppingCart = Provider.of<ShoppingCartModel>(context);
     return Container(
       margin: EdgeInsets.only(right: 20),
       padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height / 68),
@@ -38,23 +37,9 @@ class ProductCard extends StatelessWidget {
             children: [
               Expanded(
                 flex: 10,
-                child: Align(
-                    alignment: Alignment.topRight,
-                    child:
-                    IconButton(
-                      icon: Icon(
-                        productModelProvider.isFavorite==true? Icons.favorite : Icons.favorite_border,
-                        color: productModelProvider.isFavorite==true? Colors.red : Colors.grey,
-                        size: 20,
-                      ), onPressed: () async {
-                          var isFavorite = productModelProvider.isFavorite;
-                          isFavorite = await FavoriteProductsService.toggleFavoriteStatus(productModelProvider.id, ! isFavorite);
-
-                          favoriteProductsModel.toggleIsFavorite( isFavorite, productModelProvider );
-                          promoProductsModel.toggleIsFavorite( isFavorite, productModelProvider);
-                    },
-                    ),
-                    ),
+                child: ChangeNotifierProvider<ProductModel>.value(
+                    value: productModel,
+                child: ToggleFavoriteWidget(),)
               ),
               Expanded(
                 flex: 35,
@@ -88,7 +73,7 @@ class ProductCard extends StatelessWidget {
                         width: MediaQuery.of(context).size.width / 10.43,
                       ),
                     ),
-                    productModel.oldPrice.toString() !=""?
+                    productModel.oldPrice > productModel.price ?
                     Expanded(
                       flex: 1,
                       child: Text(
@@ -126,7 +111,9 @@ class ProductCard extends StatelessWidget {
                   ),
                 ),
               ),
-              Expanded(flex: 12,child: AddToCartWidget(productModel: productModel, shoppingCartView: false,)),
+              Expanded(flex: 12,child: ChangeNotifierProvider.value(
+                  value: shoppingCart,
+                  child: AddToCartWidget(productModel: productModel, shoppingCartView: false,))),
               Expanded(flex: 5,child: SizedBox())
             ],
           ),
@@ -134,4 +121,35 @@ class ProductCard extends StatelessWidget {
       ),
     );
   }
+}
+
+class ToggleFavoriteWidget  extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+
+    ProductModel productModelProvider = Provider.of<ProductModel>(context);
+    FavoriteProductsModel favoriteProductsModel = Provider.of<FavoriteProductsModel>(context);
+    PromoProductsModel promoProductsModel = Provider.of<PromoProductsModel>(context);
+    return Align(
+      alignment: Alignment.topRight,
+      child:
+      IconButton(
+        icon: Icon(
+          productModelProvider.isFavorite==true? Icons.favorite : Icons.favorite_border,
+          color: productModelProvider.isFavorite==true? Colors.red : Colors.grey,
+          size: 20,
+        ), onPressed: () async {
+        var isFavorite = productModelProvider.isFavorite;
+        isFavorite = await FavoriteProductsService.toggleFavoriteStatus(productModelProvider.id, ! isFavorite);
+
+        productModelProvider.toggleIsFavorite( isFavorite );
+
+        favoriteProductsModel.toggleIsFavorite( isFavorite, productModelProvider );
+        promoProductsModel.toggleIsFavorite( isFavorite, productModelProvider );
+      },
+      ),
+    );
+  }
+
 }

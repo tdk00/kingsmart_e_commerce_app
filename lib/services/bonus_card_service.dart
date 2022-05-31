@@ -14,7 +14,7 @@ class BonusCardService {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var mobile = prefs.getString('user_mobile');
 
-    var cardNo = await getCardNumberByMobile( "0557969888" );
+    var cardNo = await getCardNumberByMobile( "0708497010" );
 
     if( cardNo.length > 12 )
     {

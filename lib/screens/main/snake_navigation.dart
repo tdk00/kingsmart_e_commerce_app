@@ -27,96 +27,93 @@ class _SnakeNavigationState extends State<SnakeNavigation> {
   Widget build(BuildContext context) {
     Color kingsRed = CustomColors().kingsRed;
     ShoppingCartModel shoppingCart = Provider.of<ShoppingCartModel>(context);
-    return ChangeNotifierProvider<ShoppingCartModel>.value(
-      value: shoppingCart,
-      child: Scaffold(
-        backgroundColor: Color(0xFFFFF9F3),
-        extendBodyBehindAppBar: true,
-        resizeToAvoidBottomInset: true,
-        extendBody: true,
-        body: Container(
-          color: Color(0xFFFFF9F3),
-          child: PageView(
-            controller: _pageController,
-            onPageChanged: (int page ) async {
-              ShoppingCartService.updateShoppingCart( shoppingCart );
-              List itemPositions = [0, 1, 2, 3];
-              if (itemPositions.contains(page)) {
-                setState(() {
-                  _selectedItemPosition = page;
-                });
-              }
-            },
-            children: <Widget>[
-              MainScreen(),
-              StoreScreen(),
-              Container(
-                color: Colors.green,
-                width: 100,
-              ),
-              Container(
-                color: Colors.black,
-                width: 100,
-              ),
-            ],
-          ),
-        ),
-        bottomNavigationBar: SnakeNavigationBar.color(
-          // height: 80,
-          behaviour: SnakeBarBehaviour.floating,
-          snakeShape: SnakeShape.circle,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
-          padding: const EdgeInsets.only(left: 40, right: 40, bottom: 5),
-          snakeViewColor: Colors.transparent,
-          selectedItemColor: Colors.red,
-          unselectedItemColor: null,
-
-          showUnselectedLabels: false,
-          showSelectedLabels: false,
-          currentIndex: _selectedItemPosition,
-          onTap: (index) {
-            setState(() {
-              _selectedItemPosition = index;
-            });
-            _pageController.animateToPage(
-              index,
-              duration: const Duration(milliseconds: 100),
-              curve: Curves.easeInOut,
-            );
+    return Scaffold(
+      backgroundColor: Color(0xFFFFF9F3),
+      extendBodyBehindAppBar: true,
+      resizeToAvoidBottomInset: true,
+      extendBody: true,
+      body: Container(
+        color: Color(0xFFFFF9F3),
+        child: PageView(
+          controller: _pageController,
+          onPageChanged: (int page ) async {
+            ShoppingCartService.updateShoppingCart( shoppingCart );
+            List itemPositions = [0, 1, 2, 3];
+            if (itemPositions.contains(page)) {
+              setState(() {
+                _selectedItemPosition = page;
+              });
+            }
           },
-          items: [
-            BottomNavigationBarItem(
-                icon: Image.asset(
-                  "assets/buttons/mainButton.png",
-                  color: Color(0xFFCDCDCF),
-                ),
-                activeIcon: Image.asset("assets/buttons/mainButton.png"),
-                label: 'Əsas Səhifə'),
-            BottomNavigationBarItem(
-                icon: Image.asset("assets/buttons/storeButton.png"),
-                activeIcon: Image.asset(
-                  "assets/buttons/storeButton.png",
-                  color: kingsRed,
-                ),
-                label: 'Market'),
-            BottomNavigationBarItem(
-                icon: Image.asset("assets/buttons/promoButton.png"),
-                activeIcon: Image.asset(
-                  "assets/buttons/promoButton.png",
-                  color: kingsRed,
-                ),
-                label: 'Promolar'),
-            BottomNavigationBarItem(
-                icon: Image.asset("assets/buttons/profileButton.png"),
-                activeIcon: Image.asset(
-                  "assets/buttons/profileButton.png",
-                  color: kingsRed,
-                ),
-                label: 'Profil'),
+          children: <Widget>[
+            MainScreen(),
+            StoreScreen(),
+            Container(
+              color: Colors.green,
+              width: 100,
+            ),
+            Container(
+              color: Colors.black,
+              width: 100,
+            ),
           ],
-          selectedLabelStyle: const TextStyle(fontSize: 14),
-          unselectedLabelStyle: const TextStyle(fontSize: 10),
         ),
+      ),
+      bottomNavigationBar: SnakeNavigationBar.color(
+        // height: 80,
+        behaviour: SnakeBarBehaviour.floating,
+        snakeShape: SnakeShape.circle,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+        padding: const EdgeInsets.only(left: 40, right: 40, bottom: 5),
+        snakeViewColor: Colors.transparent,
+        selectedItemColor: Colors.red,
+        unselectedItemColor: null,
+
+        showUnselectedLabels: false,
+        showSelectedLabels: false,
+        currentIndex: _selectedItemPosition,
+        onTap: (index) {
+          setState(() {
+            _selectedItemPosition = index;
+          });
+          _pageController.animateToPage(
+            index,
+            duration: const Duration(milliseconds: 100),
+            curve: Curves.easeInOut,
+          );
+        },
+        items: [
+          BottomNavigationBarItem(
+              icon: Image.asset(
+                "assets/buttons/mainButton.png",
+                color: Color(0xFFCDCDCF),
+              ),
+              activeIcon: Image.asset("assets/buttons/mainButton.png"),
+              label: 'Əsas Səhifə'),
+          BottomNavigationBarItem(
+              icon: Image.asset("assets/buttons/storeButton.png"),
+              activeIcon: Image.asset(
+                "assets/buttons/storeButton.png",
+                color: kingsRed,
+              ),
+              label: 'Market'),
+          BottomNavigationBarItem(
+              icon: Image.asset("assets/buttons/promoButton.png"),
+              activeIcon: Image.asset(
+                "assets/buttons/promoButton.png",
+                color: kingsRed,
+              ),
+              label: 'Promolar'),
+          BottomNavigationBarItem(
+              icon: Image.asset("assets/buttons/profileButton.png"),
+              activeIcon: Image.asset(
+                "assets/buttons/profileButton.png",
+                color: kingsRed,
+              ),
+              label: 'Profil'),
+        ],
+        selectedLabelStyle: const TextStyle(fontSize: 14),
+        unselectedLabelStyle: const TextStyle(fontSize: 10),
       ),
     );
   }

@@ -5,6 +5,7 @@ import 'package:kingsmart_online_app/models/category_model.dart';
 import 'package:provider/provider.dart';
 
 import '../../../services/config.dart';
+import '../../store/all_categories.dart';
 
 class TrendCategories extends StatelessWidget {
   final bool showAllButton;
@@ -51,18 +52,23 @@ class TrendCategories extends StatelessWidget {
                 ),
                 showAllButton ?  Expanded(
                   flex: 4,
-                  child: Container(
-                    padding: EdgeInsets.only(right: screenWidth / 56.43),
-                    child: Align(
-                      alignment: Alignment.topRight,
-                      child: Text(
-                        "Bütün Kateqoriyalar",
-                        textAlign: TextAlign.right,
-                        style: GoogleFonts.montserrat(
-                            textStyle: TextStyle(
-                              fontSize: screenWidth / 26.43,
-                            ),
-                            color: CustomColors().kingsRed),
+                  child: GestureDetector(
+                    onTap: (){
+                      Navigator.push(context,  MaterialPageRoute(builder: (_) => AllCategories()));
+                    },
+                    child: Container(
+                      padding: EdgeInsets.only(right: screenWidth / 56.43),
+                      child: Align(
+                        alignment: Alignment.topRight,
+                        child: Text(
+                          "Bütün Kateqoriyalar",
+                          textAlign: TextAlign.right,
+                          style: GoogleFonts.montserrat(
+                              textStyle: TextStyle(
+                                fontSize: screenWidth / 26.43,
+                              ),
+                              color: CustomColors().kingsRed),
+                        ),
                       ),
                     ),
                   ),

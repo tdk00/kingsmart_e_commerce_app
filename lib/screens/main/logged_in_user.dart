@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kingsmart_online_app/screens/main/snake_navigation.dart';
+import 'package:kingsmart_online_app/state_datas/store/state_data_sorting.dart';
 import 'package:provider/provider.dart';
 import '../../../../../models/bonus_cart.dart';
 import '../../models/category_model.dart';
@@ -20,6 +21,9 @@ class LoggedInUser extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<StateDataSlidePanel>(
           create: (BuildContext context) => StateDataSlidePanel(),
+        ),
+        ChangeNotifierProvider<StateDataSorting>(
+          create: (BuildContext context) => StateDataSorting(),
         ),
         FutureProvider<BonusKart>(create: (context) => BonusCardService.getDetails(), initialData: BonusKart("0","0","0", "loading") ),
         FutureProvider<List<ReferenceSliderModel>>(create: (context) => ReferenceSliderService.getDetails(), initialData: const [] ),
