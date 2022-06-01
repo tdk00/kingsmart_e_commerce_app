@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 
 import '../../../services/config.dart';
 import '../../store/all_categories.dart';
+import '../../store/category_products.dart';
 
 class TrendCategories extends StatelessWidget {
   final bool showAllButton;
@@ -105,6 +106,7 @@ class TrendCategoryCard extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     return InkWell(
       onTap: () {
+        Navigator.push(context,  MaterialPageRoute(builder: (_) => CategoryProducts(id: categoryModel.id, categoryName: categoryModel.title)));
       },
       child: Column(
         children: [

@@ -30,7 +30,7 @@ class HeaderWithBack extends StatelessWidget {
                             child: Icon( Icons.arrow_back_ios, color: Colors.white, size: screenWidth / 20.43 ),
                           ),
                           onTap: () {
-
+                            Navigator.pop(context);
                           },
                         ),
                       ),
@@ -58,7 +58,7 @@ class HeaderWithBack extends StatelessWidget {
                             size: 23,
                           ),
                           onTap: () {
-
+                            Navigator.pushNamed(context, "/shoppingCartScreen");
                           },
                         ),
                       ),

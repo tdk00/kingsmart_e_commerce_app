@@ -43,7 +43,7 @@ class HeaderWithOnlyTitle extends StatelessWidget {
                             size: 23,
                           ),
                           onTap: () {
-
+                            Navigator.pushNamed(context, "/shoppingCartScreen");
                           },
                         ),
                       ),

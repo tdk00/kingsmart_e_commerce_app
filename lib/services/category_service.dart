@@ -75,7 +75,6 @@ class CategoryService {
   }
 
   static Future <List<ProductModel>> fetchProductsByCategoryId( int categoryId, String sortBy ) async {
-    print(sortBy + "sssssooorrrt");
     final uri = Uri.parse(Config().apiBaseUrl + 'category/category/fetch_products_by_category_id');
     var body = json.encode({
       'user_id' : 3,
@@ -93,6 +92,43 @@ class CategoryService {
     String responseBody = response.body;
 
     print(responseBody);
+    if ( statusCode == 200 ) {
+      if( jsonDecode(responseBody)['status'] == true )
+      {
+        var data = jsonDecode(responseBody)['data'];
+        List<ProductModel> productList = [];
+        for( var product in data ) {
+          ProductModel productModel = ProductModel.fromJson( product );
+
+          productList.add(productModel);
+        }
+        return productList;
+      }
+
+    }
+
+    return [];
+
+  }
+
+  static Future <List<ProductModel>> fetchProductsBySearch( String? searchKeyWord, String sortBy ) async {
+    final uri = Uri.parse(Config().apiBaseUrl + 'category/category/fetch_products_by_search');
+    print(searchKeyWord.toString() + "lllllllllllllll");
+    var body = json.encode({
+      'user_id' : 3,
+      "search_keyword" : searchKeyWord,
+      "sort_by" : sortBy
+    });
+
+    Map<String,String> headers = {
+      'Content-type' : 'application/json',
+      'Accept': 'application/json',
+    };
+
+    Response response = await http.post(uri, body: body, headers: headers);
+    int statusCode = response.statusCode;
+    String responseBody = response.body;
+
     if ( statusCode == 200 ) {
       if( jsonDecode(responseBody)['status'] == true )
       {

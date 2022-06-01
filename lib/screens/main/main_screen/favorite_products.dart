@@ -5,6 +5,7 @@ import 'package:kingsmart_online_app/screens/components/product_card.dart';
 import 'package:provider/provider.dart';
 
 import '../../../models/favorite_products_model.dart';
+import '../../store/category_products.dart';
 
 class FavoriteProducts extends StatelessWidget {
   @override
@@ -43,14 +44,19 @@ class FavoriteProducts extends StatelessWidget {
                   onTap: () {
 
                   },
-                  child: Text(
-                    "Hamısı",
-                    textAlign: TextAlign.left,
-                    style: GoogleFonts.montserrat(
-                        textStyle: TextStyle(
-                          fontSize: screenWidth / 22.43,
-                        ),
-                        color: Colors.red),
+                  child: GestureDetector(
+                    onTap: (){
+                      Navigator.push(context,  MaterialPageRoute(builder: (_) => CategoryProducts(id: -1, categoryName: "Bəyəndiyin məhsullar")));
+                    },
+                    child: Text(
+                      "Hamısı",
+                      textAlign: TextAlign.left,
+                      style: GoogleFonts.montserrat(
+                          textStyle: TextStyle(
+                            fontSize: screenWidth / 22.43,
+                          ),
+                          color: Colors.red),
+                    ),
                   ),
                 ),
               ],

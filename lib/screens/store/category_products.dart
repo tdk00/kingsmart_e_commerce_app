@@ -21,7 +21,8 @@ import '../components/radio_item.dart';
 class CategoryProducts extends StatelessWidget {
   final int id;
   final String categoryName;
-  const CategoryProducts({ required this.id , required this.categoryName, Key? key}) : super(key: key);
+  final String? searchKeyWord;
+  const CategoryProducts({ required this.id , required this.categoryName, this.searchKeyWord, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +31,13 @@ class CategoryProducts extends StatelessWidget {
         providers: [
           FutureProvider<FavoriteProductsModel>(create: (context) => FavoriteProductsService.getFavoriteProducts( 6 ), initialData: FavoriteProductsModel()) ,
           FutureProvider<PromoProductsModel>(create: (context) => PromosService.getPromoProducts( 6 ), initialData: PromoProductsModel()) ,
+          searchKeyWord == null ?
           FutureProvider<List<ProductModel>>.value(
-            value: CategoryService.fetchProductsByCategoryId( id, sortByString ), initialData: [],) ,
+            value: CategoryService.fetchProductsByCategoryId( id, sortByString ), initialData: [],)
+          :
+          FutureProvider<List<ProductModel>>.value(
+            value: CategoryService.fetchProductsBySearch( searchKeyWord, sortByString ), initialData: [],)
+          ,
         ],
         child: Body(categoryName: categoryName,)
     );

@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kingsmart_online_app/Color.dart';
 
+import '../store/category_products.dart';
+
 class SearchInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -24,6 +26,7 @@ class SearchInput extends StatelessWidget {
           child: TextField(
             textAlignVertical: TextAlignVertical.center,
             onSubmitted: ( String value ) {
+              Navigator.push(context,  MaterialPageRoute( builder: (_) => CategoryProducts( id: 0, searchKeyWord: value, categoryName: value ) ) );
             },
             decoration: InputDecoration(
                 isCollapsed: true,
