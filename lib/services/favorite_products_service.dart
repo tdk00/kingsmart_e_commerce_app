@@ -58,7 +58,6 @@ class FavoriteProductsService {
     int statusCode = response.statusCode;
     String responseBody = response.body;
 
-    print(jsonDecode(responseBody));
     bool isFavoriteNewStatus = isFavorite;
     if ( statusCode == 200 ) {
       if( jsonDecode(responseBody)['status'] == true )
@@ -66,7 +65,6 @@ class FavoriteProductsService {
         var data = jsonDecode(responseBody)['data'];
 
         isFavoriteNewStatus = data['isFavorite'];
-        print(isFavoriteNewStatus.toString() + "aaaa");
         return isFavoriteNewStatus;
       }
 

@@ -3,7 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 class HeaderWithBack extends StatelessWidget {
   final String title;
-  const HeaderWithBack({Key? key, required this.title}) : super(key: key);
+  final bool? showShoppingCartIcon;
+  const HeaderWithBack({Key? key, required this.title, this.showShoppingCartIcon}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -49,7 +50,7 @@ class HeaderWithBack extends StatelessWidget {
                     ),
                     Expanded(
                       flex: 3,
-                      child: Align(
+                      child: showShoppingCartIcon == null ? Align(
                         alignment: Alignment.centerRight,
                         child: GestureDetector(
                           child: Icon(
@@ -61,7 +62,9 @@ class HeaderWithBack extends StatelessWidget {
                             Navigator.pushNamed(context, "/shoppingCartScreen");
                           },
                         ),
-                      ),
+                      )
+                          :
+                      SizedBox()
                     ),
                   ]),
             ),

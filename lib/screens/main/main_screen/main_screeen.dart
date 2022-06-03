@@ -181,7 +181,6 @@ class MainScreen extends StatelessWidget {
 class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    print(MediaQuery.of(context).size.height);
     return SizedBox(
       child: CustomScrollView(
         scrollDirection: Axis.vertical,

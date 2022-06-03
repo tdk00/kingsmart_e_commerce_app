@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 class ProductModel extends ChangeNotifier{
   final int id;
   final String barkod, title, summary, image;
+  String note;
   final double price, oldPrice,  discount;
   bool isFavorite;
 
@@ -18,6 +19,7 @@ class ProductModel extends ChangeNotifier{
     required this.oldPrice,
     required this.discount,
     required this.isFavorite,
+    required this.note
 
   });
 
@@ -33,6 +35,7 @@ class ProductModel extends ChangeNotifier{
       oldPrice: double.tryParse( json['oldPrice'] )  ?? 0,
       discount: double.tryParse( json['discount'] )  ?? 0,
       isFavorite: is_favorite > 0 ,
+      note: json['note'],
     );
 
   }
@@ -50,10 +53,15 @@ class ProductModel extends ChangeNotifier{
         'oldPrice': oldPrice,
         'discount': discount,
         'isFavorite': isFavorite,
+        'note' : note
       };
 
     void toggleIsFavorite( bool status ){
       isFavorite = status;
       notifyListeners();
     }
+  void updateNote( String newNote ){
+    note = newNote;
+    notifyListeners();
+  }
 }

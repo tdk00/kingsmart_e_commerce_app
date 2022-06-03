@@ -12,8 +12,6 @@ class ShoppingCartItem extends StatelessWidget {
   ShoppingCartItem({ required this.productModel });
   @override
   Widget build(BuildContext context) {
-
-    print("shopping cart item rebuilt");
     double screenWidth = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     var padding = MediaQuery.of(context).viewPadding;

@@ -91,7 +91,6 @@ class CategoryService {
     int statusCode = response.statusCode;
     String responseBody = response.body;
 
-    print(responseBody);
     if ( statusCode == 200 ) {
       if( jsonDecode(responseBody)['status'] == true )
       {
@@ -113,7 +112,6 @@ class CategoryService {
 
   static Future <List<ProductModel>> fetchProductsBySearch( String? searchKeyWord, String sortBy ) async {
     final uri = Uri.parse(Config().apiBaseUrl + 'category/category/fetch_products_by_search');
-    print(searchKeyWord.toString() + "lllllllllllllll");
     var body = json.encode({
       'user_id' : 3,
       "search_keyword" : searchKeyWord,

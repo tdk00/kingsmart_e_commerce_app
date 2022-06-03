@@ -42,7 +42,7 @@ class Body extends StatelessWidget {
                 Container( color: CustomColors().kingsRed , child: SearchInput(), ),
                 Container( color: CustomColors().kingsRed,height: MediaQuery.of(context).size.height / 50,),
                 TrendCategories(showAllButton: true, mainTitleColor: Colors.black, categoryTitleColor: Colors.black, mainTitleText: "Kateqoriyadan seç", ),
-                Expanded(child: ProductGridView(title: "Endirimli məhsullar", productList: model.promoProducts,)),
+                Expanded(child: ProductGridView( title: "Endirimli məhsullar", productList: model.promoProducts ,),),
               ],
             ),
           ),

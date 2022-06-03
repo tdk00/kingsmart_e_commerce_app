@@ -25,7 +25,6 @@ class ReferenceSliderService {
       if( jsonDecode(responseBody)['status'] == true )
         {
           var data = jsonDecode(responseBody)['data'];
-          print(data);
           List<ReferenceSliderModel> slidersList = [];
           for( var item in data ) {
               ReferenceSliderModel slider = ReferenceSliderModel(
