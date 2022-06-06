@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 import 'package:kingsmart_online_app/Color.dart';
 import 'package:kingsmart_online_app/models/shopping_cart_model.dart';
+import 'package:kingsmart_online_app/screens/account/account_main.dart';
 import 'package:kingsmart_online_app/screens/main/main_screen/main_screeen.dart';
 import 'package:kingsmart_online_app/services/shopping_cart_service.dart';
 import 'package:provider/provider.dart';
@@ -52,10 +53,7 @@ class _SnakeNavigationState extends State<SnakeNavigation> {
               color: Colors.green,
               width: 100,
             ),
-            Container(
-              color: Colors.black,
-              width: 100,
-            ),
+            AccountMain()
           ],
         ),
       ),

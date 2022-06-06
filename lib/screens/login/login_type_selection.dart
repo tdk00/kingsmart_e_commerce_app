@@ -90,18 +90,14 @@ class LoginTypeSelection extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(20.0),
                                 ),
                               ),
-                              child: Container(
-                                child: SizedBox(
-                                  height:
-                                  MediaQuery.of(context).size.width /
-                                      3.125,
-                                  child: Tab(
-                                    icon: Container(
-                                      child: Image(
-                                        image: AssetImage(
-                                          'assets/images/phone_login.png',
-                                        ),
-                                      ),
+                              child: SizedBox(
+                                height:
+                                MediaQuery.of(context).size.width /
+                                    3.125,
+                                child: Tab(
+                                  icon: Image(
+                                    image: AssetImage(
+                                      'assets/images/phone_login.png',
                                     ),
                                   ),
                                 ),
