@@ -4,7 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 class HeaderWithBack extends StatelessWidget {
   final String title;
   final bool? showShoppingCartIcon;
-  const HeaderWithBack({Key? key, required this.title, this.showShoppingCartIcon}) : super(key: key);
+  final bool? showDeleteIcon;
+  const HeaderWithBack({Key? key, required this.title, this.showShoppingCartIcon, this.showDeleteIcon}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -50,7 +51,7 @@ class HeaderWithBack extends StatelessWidget {
                     ),
                     Expanded(
                       flex: 3,
-                      child: showShoppingCartIcon == null ? Align(
+                      child: showShoppingCartIcon != false ? Align(
                         alignment: Alignment.centerRight,
                         child: GestureDetector(
                           child: Icon(
@@ -64,7 +65,23 @@ class HeaderWithBack extends StatelessWidget {
                         ),
                       )
                           :
-                      SizedBox()
+                          showDeleteIcon == true
+                              ?
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: GestureDetector(
+                              child: Icon(
+                                Icons.delete,
+                                color: Colors.white,
+                                size: 23,
+                              ),
+                              onTap: () {
+                                Navigator.pushNamed(context, "/shoppingCartScreen");
+                              },
+                            ),
+                          )
+                              :
+                          SizedBox()
                     ),
                   ]),
             ),

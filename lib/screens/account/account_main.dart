@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kingsmart_online_app/screens/account/address.dart';
 import 'package:kingsmart_online_app/screens/account/profile.dart';
 import 'package:kingsmart_online_app/screens/components/header_with_only_title.dart';
 import 'package:kingsmart_online_app/screens/components/related_products.dart';
@@ -34,12 +35,8 @@ class Body extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 AccountMenuHeader(title: "Mənim hesabım",),
-
-                AccountMenuItem(title: 'Profilim',
-                    route: ProfileFuture()
-                ),
-
-                AccountMenuItem(title: 'Ünvanlarım', route: Start()),
+                AccountMenuItem(title: 'Profilim', route: ProfileFuture() ),
+                AccountMenuItem(title: 'Ünvanlarım', route: AddressFuture()),
                 AccountMenuItem(title: 'Sifarişlər', route: Start()),
                 AccountMenuHeader(title: "Alətlər",),
                 AccountMenuItem(title: 'Promolar', route: Start()),

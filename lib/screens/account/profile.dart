@@ -13,7 +13,7 @@ import '../components/gender_radio_item.dart';
 class ProfileFuture extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return FutureProvider.value(
+    return FutureProvider<ProfileModel>.value(
       value: ProfileService.getProfileDetails(),
       initialData: ProfileModel(),
       child: Profile(),
@@ -54,7 +54,7 @@ class Body extends StatelessWidget {
           Container(
             height: height1 / 12,
             color: CustomColors().kingsRed,
-            child: HeaderWithBack(title: "Profilim"),
+            child: HeaderWithBack(title: "Profilim", showShoppingCartIcon: false,),
           ),
           profileModel.id < 1
               ?
