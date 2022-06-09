@@ -44,14 +44,15 @@ class ShoppingCartService {
 
   }
 
-  static updateShoppingCart( shoppingCart ) async {
-    if( shoppingCart.isModified == false ) return;
+  static updateShoppingCart( shoppingCart, { forceUpdate = false } ) async {
+    if( shoppingCart.isModified == false && forceUpdate == false ) return;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var userId = prefs.getString('user_id');
     final uri = Uri.parse(Config().apiBaseUrl + 'main/ShoppingCart/update_cart');
     Map<String, int> shoppingCartProducts = {};
     shoppingCart.shoppingCartItems.forEach((productModel,productCount) => shoppingCartProducts[ productModel.id.toString()] = productCount );
 
+    print(jsonEncode(shoppingCartProducts));
     shoppingCart.isModified = false;
     var body = jsonEncode({
       "items": shoppingCartProducts,

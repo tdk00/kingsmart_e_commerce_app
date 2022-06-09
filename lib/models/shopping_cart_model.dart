@@ -98,6 +98,7 @@ class ShoppingCartModel with ChangeNotifier {
 
     if( shouldRemove != null )
       {
+        isModified = true;
         shoppingCartItems.removeWhere((key, value) => key == shouldRemove);
       }
 
@@ -117,6 +118,7 @@ class ShoppingCartModel with ChangeNotifier {
     } );
 
     if( deleteModel != null) {
+      isModified = true;
       shoppingCartItems.removeWhere((key, value) => key == deleteModel);
     }
 

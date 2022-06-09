@@ -7,6 +7,7 @@ import 'package:kingsmart_online_app/screens/shopping_cart/shopping_cart_item.da
 import 'package:provider/provider.dart';
 
 import '../../models/product_model.dart';
+import '../../services/shopping_cart_service.dart';
 
 class ShoppingCartScreen extends StatelessWidget {
 
@@ -24,7 +25,7 @@ class Body extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     ShoppingCartModel shoppingCart = Provider.of<ShoppingCartModel>(context);
     var shoppingCartListKeys = shoppingCart.shoppingCartItems.keys.toList();
-
+    ShoppingCartService.updateShoppingCart( shoppingCart, forceUpdate: true );
     if( shoppingCart.shoppingCartItems.length == 0 )
     {
       return ShoppingCartEmpty();
@@ -38,6 +39,7 @@ class Body extends StatelessWidget {
           centerTitle: true,
           leading: GestureDetector(
               onTap: () {
+                ShoppingCartService.updateShoppingCart( shoppingCart );
                 Navigator.pop(context);
               },
               child: Icon(Icons.arrow_back_ios)),
@@ -349,7 +351,8 @@ class BottomPart extends StatelessWidget {
                             fontSize: screenWidth / 27,
                           ),
                           color: Colors.white)),
-                  onPressed: () {
+                  onPressed: () async {
+                    await ShoppingCartService.updateShoppingCart( shoppingCart );
                       Navigator.push(context, MaterialPageRoute(builder: (_) => AddressSelection()));
                   },
                 ),

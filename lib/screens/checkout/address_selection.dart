@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kingsmart_online_app/models/address_model.dart';
-import 'package:kingsmart_online_app/models/profile_model.dart';
+import 'package:kingsmart_online_app/screens/checkout/payment_selection.dart';
 import 'package:kingsmart_online_app/screens/components/header_with_back.dart';
 import 'package:kingsmart_online_app/services/account/address_service.dart';
 import 'package:provider/provider.dart';
@@ -326,7 +326,7 @@ class BottomPart extends StatelessWidget {
                           ),
                           color: Colors.white)),
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (_) => AddressSelection()));
+                    Navigator.push(context, MaterialPageRoute(builder: (_) => PaymentSelection()));
                   },
                 ),
               ),

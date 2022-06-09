@@ -1,151 +1,155 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kingsmart_online_app/screens/components/header_with_back.dart';
+import 'package:provider/provider.dart';
+
+import '../../Color.dart';
+import '../../models/shopping_cart_model.dart';
 
 class PaymentSelection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 20.0, top: 35.0),
-          child: Text("Onlayn ödəmə",
-              textAlign: TextAlign.left,
-              style: GoogleFonts.montserrat(
-                  textStyle: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: MediaQuery.of(context).size.width / 26,
+    double screenWidth = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+    var padding = MediaQuery.of(context).viewPadding;
+    double height1 = height - padding.top - kToolbarHeight;
+    ShoppingCartModel shoppingCart = Provider.of<ShoppingCartModel>(context);
+    return SafeArea(
+      child: Scaffold(
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container( height: height1 / 12,color: CustomColors().kingsRed, child: HeaderWithBack(title: 'Ödəmə forması', showShoppingCartIcon: false ) ),
+            Padding(
+              padding: EdgeInsets.only(left: screenWidth / 20, top: height1 / 20),
+              child: Text("Qapıda ödəmə",
+                  textAlign: TextAlign.left,
+                  style: GoogleFonts.montserrat(
+                      textStyle: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: screenWidth / 26,
+                      ),
+                      color: Colors.black)),
+            ),
+            Padding(
+                padding:
+                EdgeInsets.only(left: screenWidth / 20, top: height1 / 40, right: screenWidth / 20),
+                child: OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
                   ),
-                  color: Colors.black)),
-        ),
-        Padding(
-            padding:
-            const EdgeInsets.only(left: 20.0, top: 20.0, right: 20.0),
-            child: OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-              ),
-              onPressed: () async {
+                  onPressed: () async {
 
-              },
-              child: Container(
-                height: 60,
-                width: MediaQuery.of(context).size.width,
-                child: Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("Debet kart ilə ödəmə",
-                          textAlign: TextAlign.left,
-                          style: GoogleFonts.montserrat(
-                              textStyle: TextStyle(
-                                fontSize:
-                                MediaQuery.of(context).size.width / 26,
-                              ),
-                              color: Colors.black)),
-                      Container(
-                          width: 30,
-                          child: Image.asset("assets/buttons/arrow.png"))
-                    ],
+                  },
+                  child: SizedBox(
+                    height: height1 / 12,
+                    width: screenWidth,
+                    child: Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Sifarişi aldıqdan sonra nağd ödəmək",
+                              textAlign: TextAlign.left,
+                              style: GoogleFonts.montserrat(
+                                  textStyle: TextStyle(
+                                    fontSize: screenWidth / 30,
+                                  ),
+                                  color: Colors.black)),
+                          Container(
+                              width: screenWidth / 20,
+                              child: Image.asset("assets/buttons/arrow.png"))
+                        ],
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            )),
-        Padding(
-          padding: const EdgeInsets.only(left: 20.0, top: 35.0),
-          child: Text("Nağd ödəmə",
-              textAlign: TextAlign.left,
-              style: GoogleFonts.montserrat(
-                  textStyle: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: MediaQuery.of(context).size.width / 26,
+            ),
+            Padding(
+                padding: EdgeInsets.only(left: screenWidth / 21, top: height1 / 30, right: screenWidth / 15),
+                child: SizedBox(
+                  width: screenWidth,
+                  child: Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Məbləğ",
+                            textAlign: TextAlign.left,
+                            style: GoogleFonts.montserrat(
+                                textStyle: TextStyle(
+                                  fontSize: screenWidth / 26,
+                                ),
+                                color: Colors.black)),
+                        Text(shoppingCart.basketTotalMoney.toString() + " ₼",
+                            textAlign: TextAlign.left,
+                            style: GoogleFonts.montserrat(
+                                textStyle: TextStyle(
+                                  fontSize: screenWidth / 26,
+                                ),
+                                color: Colors.black)),
+                      ],
+                    ),
                   ),
-                  color: Colors.black)),
-        ),
-        Padding(
-            padding:
-            const EdgeInsets.only(left: 20.0, top: 20.0, right: 20.0),
-            child: OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-              ),
-              onPressed: () async{
-              },
-              child: Container(
-                height: 60,
-                width: MediaQuery.of(context).size.width,
-                child: Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("Sifarişi aldıqdan sonra ödəmə",
-                          textAlign: TextAlign.left,
-                          style: GoogleFonts.montserrat(
-                              textStyle: TextStyle(
-                                fontSize:
-                                MediaQuery.of(context).size.width / 26,
-                              ),
-                              color: Colors.black)),
-                      Container(
-                          width: 30,
-                          child: Image.asset("assets/buttons/arrow.png"))
-                    ],
+                )),
+            Padding(
+                padding: EdgeInsets.only(left: screenWidth / 21, top: height1 / 60, right: screenWidth / 15),
+                child: SizedBox(
+                  width: screenWidth,
+                  child: Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Çatdırılma məbləği",
+                            textAlign: TextAlign.left,
+                            style: GoogleFonts.montserrat(
+                                textStyle: TextStyle(
+                                  fontSize: screenWidth / 26,
+                                ),
+                                color: Colors.black)),
+                        Text("0.00" + " ₼",
+                            textAlign: TextAlign.left,
+                            style: GoogleFonts.montserrat(
+                                textStyle: TextStyle(
+                                  fontSize: screenWidth / 26,
+                                ),
+                                color: Colors.black)),
+                      ],
+                    ),
                   ),
-                ),
-              ),
-            )),
-        Padding(
-          padding: const EdgeInsets.only(left: 20.0, top: 35.0),
-          child: Text("Bonus ilə ödəmə",
-              textAlign: TextAlign.left,
-              style: GoogleFonts.montserrat(
-                  textStyle: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: MediaQuery.of(context).size.width / 26,
+                )),
+            Padding(
+                padding: EdgeInsets.only(left: screenWidth / 21, top: height1 / 30, right: screenWidth / 15),
+                child: SizedBox(
+                  width: screenWidth,
+                  child: Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Toplam",
+                            textAlign: TextAlign.left,
+                            style: GoogleFonts.montserrat(
+                                fontWeight: FontWeight.bold,
+                                textStyle: TextStyle(
+                                  fontSize: screenWidth / 25,
+                                ),
+                                color: Colors.black)),
+                        Text(shoppingCart.basketTotalMoney.toString() + " ₼",
+                            textAlign: TextAlign.left,
+                            style: GoogleFonts.montserrat(
+                                fontWeight: FontWeight.bold,
+                                textStyle: TextStyle(
+                                  fontSize: screenWidth / 25,
+                                ),
+                                color: Colors.black)),
+                      ],
+                    ),
                   ),
-                  color: Colors.black)),
-        ),
-        Padding(
-            padding:
-            const EdgeInsets.only(left: 20.0, top: 20.0, right: 20.0),
-            child: OutlinedButton(
-              onPressed: () async{
+                )),
 
-              },
-              style: OutlinedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-              ),
-              child: Container(
-                height: 60,
-                width: MediaQuery.of(context).size.width,
-                child: Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("Topadığınız keşbeklə ödəmə",
-                          textAlign: TextAlign.left,
-                          style: GoogleFonts.montserrat(
-                              textStyle: TextStyle(
-                                fontSize:
-                                MediaQuery.of(context).size.width / 26,
-                              ),
-                              color: Colors.black)),
-                      Container(
-                          width: 30,
-                          child: Image.asset("assets/buttons/arrow.png"))
-                    ],
-                  ),
-                ),
-              ),
-            )),
-
-      ],
+          ],
+        ),
+      ),
     );
   }
 }
