@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kingsmart_online_app/models/address_model.dart';
+import 'package:kingsmart_online_app/screens/account/account_main.dart';
+import 'package:kingsmart_online_app/screens/checkout/address_selection.dart';
+import 'package:kingsmart_online_app/screens/checkout/change_adress_checkout.dart';
+import 'package:kingsmart_online_app/screens/main/snake_navigation.dart';
+import 'package:kingsmart_online_app/services/account/address_service.dart';
+import 'package:provider/provider.dart';
 
-class HeaderWithBack extends StatelessWidget {
+import '../account/add_adress.dart';
+import '../account/address.dart';
+
+class HeaderCheckoutChangeAddress extends StatelessWidget {
   final String title;
   final bool? showShoppingCartIcon;
-  final bool? showDeleteIcon;
-  final double? customTitleFontSize;
-  const HeaderWithBack({Key? key, required this.title, this.showShoppingCartIcon, this.showDeleteIcon, this.customTitleFontSize}) : super(key: key);
+  final bool? backToAddressSelection;
+  const HeaderCheckoutChangeAddress({Key? key, required this.title, this.showShoppingCartIcon, this.backToAddressSelection }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -33,7 +42,15 @@ class HeaderWithBack extends StatelessWidget {
                             child: Icon( Icons.arrow_back_ios, color: Colors.white, size: screenWidth / 20.43 ),
                           ),
                           onTap: () {
-                            Navigator.pop(context);
+                            if( backToAddressSelection == true )
+                            {
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => AddressSelection()));
+                            }
+                            else
+                            {
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => ChangeAddressCheckoutFuture()));
+                            }
+
                           },
                         ),
                       ),
@@ -45,44 +62,18 @@ class HeaderWithBack extends StatelessWidget {
                         child: Text(title,
                           style: GoogleFonts.montserrat(
                               textStyle: TextStyle(
-                                fontSize: customTitleFontSize ?? screenWidth / 20.43,
+                                fontSize: screenWidth / 20.43,
                               ),
                               color: Colors.white),),
                       ),
                     ),
                     Expanded(
-                      flex: 3,
-                      child: showShoppingCartIcon != false ? Align(
-                        alignment: Alignment.centerRight,
-                        child: GestureDetector(
-                          child: Icon(
-                            Icons.shopping_bag_outlined,
-                            color: Colors.white,
-                            size: 23,
-                          ),
-                          onTap: () {
-                            Navigator.pushNamed(context, "/shoppingCartScreen");
-                          },
-                        ),
-                      )
-                          :
-                          showDeleteIcon == true
-                              ?
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: GestureDetector(
-                              child: Icon(
-                                Icons.delete,
-                                color: Colors.white,
-                                size: 23,
-                              ),
-                              onTap: () {
-                                Navigator.pushNamed(context, "/shoppingCartScreen");
-                              },
-                            ),
-                          )
-                              :
-                          SizedBox()
+                        flex: 2,
+                        child: Align()
+                    ),
+                    Expanded(
+                        flex: 3,
+                        child: SizedBox(),
                     ),
                   ]),
             ),

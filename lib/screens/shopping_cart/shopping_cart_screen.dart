@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kingsmart_online_app/Color.dart';
 import 'package:kingsmart_online_app/models/shopping_cart_model.dart';
+import 'package:kingsmart_online_app/screens/checkout/address_selection.dart';
 import 'package:kingsmart_online_app/screens/shopping_cart/shopping_cart_item.dart';
 import 'package:provider/provider.dart';
 
@@ -349,7 +350,7 @@ class BottomPart extends StatelessWidget {
                           ),
                           color: Colors.white)),
                   onPressed: () {
-
+                      Navigator.push(context, MaterialPageRoute(builder: (_) => AddressSelection()));
                   },
                 ),
               ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kingsmart_online_app/models/address_model.dart';
+import 'package:kingsmart_online_app/screens/account/account_main.dart';
+import 'package:kingsmart_online_app/screens/main/snake_navigation.dart';
 import 'package:kingsmart_online_app/services/account/address_service.dart';
 import 'package:provider/provider.dart';
 
@@ -13,7 +15,8 @@ class HeaderAddresses extends StatelessWidget {
   final bool? showDeleteIcon;
   final bool? showAddIcon;
   final int? deleteId;
-  const HeaderAddresses({Key? key, required this.title, this.showShoppingCartIcon, this.showDeleteIcon, this.showAddIcon, this.deleteId }) : super(key: key);
+  final bool? backToAccountMain;
+  const HeaderAddresses({Key? key, required this.title, this.showShoppingCartIcon, this.showDeleteIcon, this.showAddIcon, this.deleteId, this.backToAccountMain }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -40,7 +43,15 @@ class HeaderAddresses extends StatelessWidget {
                             child: Icon( Icons.arrow_back_ios, color: Colors.white, size: screenWidth / 20.43 ),
                           ),
                           onTap: () {
-                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => AddressFuture()));
+                            if( backToAccountMain == true )
+                              {
+                                Navigator.pop(context);
+                              }
+                            else
+                              {
+                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => AddressFuture()));
+                              }
+
                           },
                         ),
                       ),

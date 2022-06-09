@@ -45,6 +45,36 @@ class AddressService {
 
   }
 
+  static Future<AddressModel> getSelectedAddress() async {
+    final uri = Uri.parse(Config().apiBaseUrl + 'account/address/fetch_selected_address');
+    var body = json.encode({
+      'user_id' : 3,
+    });
+
+    Map<String,String> headers = {
+      'Content-type' : 'application/json',
+      'Accept': 'application/json',
+    };
+
+    Response response = await http.post(uri, body: body, headers: headers);
+    int statusCode = response.statusCode;
+    String responseBody = response.body;
+
+
+    if ( statusCode == 200 ) {
+      if( jsonDecode(responseBody)['status'] == true )
+      {
+        var data = jsonDecode(responseBody)['data'];
+        AddressModel addressModel = AddressModel.fromJson( data );
+        return addressModel;
+      }
+
+    }
+
+    return AddressModel(id: -1, content: '', postal: '', note: '', selected: false);
+
+  }
+
   static Future<AddressModel> getAddressById( int addressId ) async {
     final uri = Uri.parse(Config().apiBaseUrl + 'account/address/fetch_address_by_id');
     var body = json.encode({
@@ -96,6 +126,33 @@ class AddressService {
     String responseBody = response.body;
     print(responseBody);
 
+  }
+
+  static setSelectedAddress( addressId ) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var userId = prefs.getString('user_id');
+    final uri = Uri.parse(Config().apiBaseUrl + 'account/address/set_selected_address');
+
+    var body = jsonEncode({
+      "address_id": addressId,
+      "user_id": 3,
+    });
+
+    Map<String,String> headers = {
+      'Content-type' : 'application/json',
+      'Accept': 'application/json',
+    };
+
+    Response response = await http.post(uri, body: body, headers: headers);
+    int statusCode = response.statusCode;
+    String responseBody = response.body;
+    if ( statusCode == 200 ) {
+      if( jsonDecode(responseBody)['status'] == true )
+      {
+         return true;
+      }
+    }
+  return false;
   }
 
   static deleteAddress( addressId ) async {

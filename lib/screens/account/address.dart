@@ -45,7 +45,7 @@ class Body extends StatelessWidget {
           Container(
             height: height1 / 12,
             color: CustomColors().kingsRed,
-            child: HeaderAddresses( title: "Ünvanlarım" ),
+            child: HeaderAddresses( title: "Ünvanlarım", backToAccountMain: true, ),
           ),
           showWidget
 
