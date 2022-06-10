@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:kingsmart_online_app/screens/components/shopping_cart_item_count_dot.dart';
 
 class HeaderWithLogo extends StatelessWidget {
   @override
@@ -25,10 +26,16 @@ class HeaderWithLogo extends StatelessWidget {
                 width: screenWidth / 5,
               ),
               GestureDetector(
-                child: Icon(
-                  Icons.shopping_bag_outlined,
-                  color: Colors.white,
-                  size: 23,
+                child: Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      Icon(
+                        Icons.shopping_bag_outlined,
+                        color: Colors.white,
+                        size: 23,
+                      ),
+                      BuildDot()
+                    ]
                 ),
                 onTap: () {
                   Navigator.pushNamed(context, "/shoppingCartScreen");

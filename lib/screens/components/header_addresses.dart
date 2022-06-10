@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kingsmart_online_app/models/address_model.dart';
 import 'package:kingsmart_online_app/screens/account/account_main.dart';
+import 'package:kingsmart_online_app/screens/components/shopping_cart_item_count_dot.dart';
 import 'package:kingsmart_online_app/screens/main/snake_navigation.dart';
 import 'package:kingsmart_online_app/services/account/address_service.dart';
 import 'package:provider/provider.dart';
@@ -101,10 +102,16 @@ class HeaderAddresses extends StatelessWidget {
                         child: showShoppingCartIcon != false ? Align(
                           alignment: Alignment.centerRight,
                           child: GestureDetector(
-                            child: Icon(
-                              Icons.shopping_bag_outlined,
-                              color: Colors.white,
-                              size: 23,
+                            child: Stack(
+                              clipBehavior: Clip.none,
+                              children: [
+                                Icon(
+                                Icons.shopping_bag_outlined,
+                                color: Colors.white,
+                                size: 23,
+                              ),
+                                BuildDot()
+                              ]
                             ),
                             onTap: () {
                               Navigator.pushNamed(context, "/shoppingCartScreen");

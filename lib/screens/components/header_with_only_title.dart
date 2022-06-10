@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kingsmart_online_app/screens/components/shopping_cart_item_count_dot.dart';
 
 class HeaderWithOnlyTitle extends StatelessWidget {
   final String title;
@@ -37,10 +38,16 @@ class HeaderWithOnlyTitle extends StatelessWidget {
                       child: Align(
                         alignment: Alignment.centerRight,
                         child: GestureDetector(
-                          child: Icon(
-                            Icons.shopping_bag_outlined,
-                            color: Colors.white,
-                            size: 23,
+                          child: Stack(
+                              clipBehavior: Clip.none,
+                              children: [
+                                Icon(
+                                  Icons.shopping_bag_outlined,
+                                  color: Colors.white,
+                                  size: 23,
+                                ),
+                                BuildDot()
+                              ]
                           ),
                           onTap: () {
                             Navigator.pushNamed(context, "/shoppingCartScreen");
