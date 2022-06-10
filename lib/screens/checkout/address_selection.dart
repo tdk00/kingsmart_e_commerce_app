@@ -44,70 +44,81 @@ class Body extends StatelessWidget {
         child: Scaffold(
       body: Column(
         children: [
-          Container(
-            height: height1 / 12,
-            color: CustomColors().kingsRed,
-            child: HeaderWithBack(title: "Çatdırılma məlumatları", showShoppingCartIcon: false, customTitleFontSize: screenWidth / 24,),
-          ),
-          Container(
-            color: Colors.white,
-            child: Column(
-              children: [
-                SizedBox(
-                  height: height1 / 20,
-                ),
-                SizedBox(
-                  width: screenWidth / 1.1,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Çatdırılma ünvanı',
-                        style: GoogleFonts.montserrat(
-                            textStyle: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: screenWidth / 28.43,
-                            ),
-                            color: Colors.black),
-                      ),
-                      GestureDetector(
-                        onTap: (){
-                          Navigator.pushReplacement(context, MaterialPageRoute( builder: (_) => ChangeAddressCheckoutFuture() ));
-                        },
-                        child: Text(
-                          'Dəyişdir',
-                          style: GoogleFonts.montserrat(
-                              textStyle: TextStyle(
-                                  fontSize: screenWidth / 28.43,
-                                  fontWeight: FontWeight.w600
-                              ),
-                              color: CustomColors().kingsRed),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: height1 / 40,
-                ),
-                showWidget,
-                SizedBox(
-                  height: height1 / 10,
-                ),
-
-              ],
-
+          Expanded(
+            flex: 1,
+            child: Container(
+              height: height1 / 12,
+              color: CustomColors().kingsRed,
+              child: HeaderWithBack(title: "Çatdırılma məlumatları", showShoppingCartIcon: false, customTitleFontSize: screenWidth / 24,),
             ),
           ),
-          SizedBox(
-            height: height1 / 1.77,
+          Expanded(
+            flex: 4,
+            child: Container(
+              color: Colors.white,
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: height1 / 20,
+                  ),
+                  SizedBox(
+                    width: screenWidth / 1.1,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Çatdırılma ünvanı',
+                          style: GoogleFonts.montserrat(
+                              textStyle: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: screenWidth / 28.43,
+                              ),
+                              color: Colors.black),
+                        ),
+                        GestureDetector(
+                          onTap: (){
+                            Navigator.pushReplacement(context, MaterialPageRoute( builder: (_) => ChangeAddressCheckoutFuture() ));
+                          },
+                          child: Text(
+                            'Dəyişdir',
+                            style: GoogleFonts.montserrat(
+                                textStyle: TextStyle(
+                                    fontSize: screenWidth / 28.43,
+                                    fontWeight: FontWeight.w600
+                                ),
+                                color: CustomColors().kingsRed),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: height1 / 40,
+                  ),
+                  showWidget,
+                  SizedBox(
+                    height: height1 / 10,
+                  ),
+
+                ],
+
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 6,
+            child: SizedBox(
+            ),
           ),
           selectedAddress.selected
               ?
-          Align(
+          Expanded(
+              flex: 2,
               child: BottomPart())
               :
-          SizedBox()
+          Expanded(
+              flex: 2,
+              child: SizedBox())
         ],
       ),
     ));

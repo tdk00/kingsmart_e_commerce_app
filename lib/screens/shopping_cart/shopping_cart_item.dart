@@ -19,8 +19,8 @@ class ShoppingCartItem extends StatelessWidget {
     ShoppingCartModel shoppingCart = Provider.of<ShoppingCartModel>(context);
     int quantityInBasket = shoppingCart.getQuantityInShoppingCart( productModel );
     return Container(
-      height: height1 / 7,
-      padding: EdgeInsets.only(left: 40, top: 20),
+      height: height1 / 6,
+      padding: EdgeInsets.only(left: screenWidth / 20 , top: height1 / 45, bottom: height1 / 45),
       child: Column(
         children: [
             Row(
