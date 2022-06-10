@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kingsmart_online_app/screens/checkout/order_success.dart';
 import 'package:kingsmart_online_app/screens/components/header_with_back.dart';
+import 'package:kingsmart_online_app/screens/main/snake_navigation.dart';
+import 'package:kingsmart_online_app/services/checkout/order_service.dart';
 import 'package:provider/provider.dart';
 
 import '../../Color.dart';
@@ -41,7 +44,18 @@ class PaymentSelection extends StatelessWidget {
                     ),
                   ),
                   onPressed: () async {
-
+                    var response = await OrderService.addOrder();
+                    if( response['status'] == true )
+                    {
+                      shoppingCart.clearShoppingCart();
+                      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => OrderSuccess()), (route) => false);
+                    }
+                    else
+                    {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text( response['error_message'] ), backgroundColor: Colors.red,)
+                      );
+                    }
                   },
                   child: SizedBox(
                     height: height1 / 12,
