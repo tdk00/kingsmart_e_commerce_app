@@ -28,12 +28,17 @@ class HeaderWithBack extends StatelessWidget {
                       flex: 3,
                       child: Align(
                         alignment: Alignment.centerRight,
-                        child: GestureDetector(
+                        child: TextButton(
+                        style: TextButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                            minimumSize: Size(0, 0),
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            alignment: Alignment.centerLeft),
                           child: Container(
                             alignment: Alignment.topLeft,
                             child: Icon( Icons.arrow_back_ios, color: Colors.white, size: screenWidth / 20.43 ),
                           ),
-                          onTap: () {
+                          onPressed: () {
                             Navigator.pop(context);
                           },
                         ),
@@ -55,7 +60,12 @@ class HeaderWithBack extends StatelessWidget {
                       flex: 3,
                       child: showShoppingCartIcon != false ? Align(
                         alignment: Alignment.centerRight,
-                        child: GestureDetector(
+                        child: TextButton(
+                        style: TextButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                            minimumSize: Size(0, 0),
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            alignment: Alignment.centerLeft),
                           child: Stack(
                               clipBehavior: Clip.none,
                               children: [
@@ -67,7 +77,7 @@ class HeaderWithBack extends StatelessWidget {
                                 BuildDot()
                               ]
                           ),
-                          onTap: () {
+                          onPressed: () {
                             Navigator.pushNamed(context, "/shoppingCartScreen");
                           },
                         ),
@@ -77,13 +87,18 @@ class HeaderWithBack extends StatelessWidget {
                               ?
                           Align(
                             alignment: Alignment.centerRight,
-                            child: GestureDetector(
+                            child: TextButton(
+                        style: TextButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                            minimumSize: Size(0, 0),
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            alignment: Alignment.centerLeft),
                               child: Icon(
                                 Icons.delete,
                                 color: Colors.white,
                                 size: 23,
                               ),
-                              onTap: () {
+                              onPressed: () {
                                 Navigator.pushNamed(context, "/shoppingCartScreen");
                               },
                             ),

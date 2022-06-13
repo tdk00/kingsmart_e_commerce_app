@@ -110,8 +110,13 @@ class ChangeAddresses extends StatelessWidget {
               primary: false,
               itemCount: addresses.length,
               itemBuilder: (BuildContext context, int index) {
-                return  GestureDetector(
-                  onTap: () {
+                return  TextButton(
+                        style: TextButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                            minimumSize: Size(0, 0),
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            alignment: Alignment.centerLeft),
+                  onPressed: () {
                     for( var i = 0 ; i < addresses.length; i++){
                       addresses[i].changeSelectedStatus(false);
                     }
@@ -125,8 +130,13 @@ class ChangeAddresses extends StatelessWidget {
                 );
               },
             ),
-            GestureDetector(
-              onTap: (){
+            TextButton(
+                        style: TextButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                            minimumSize: Size(0, 0),
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            alignment: Alignment.centerLeft),
+              onPressed: (){
                 Navigator.pushReplacement(context, MaterialPageRoute( builder: (_) => AddAddressCheckout(addressModel: AddressModel(id: 0, content: '', postal: '', note: '', selected: false)) ));
               },
               child: Padding(
@@ -260,7 +270,6 @@ class BottomPart extends StatelessWidget {
     var padding = MediaQuery.of(context).viewPadding;
     double height1 = height - padding.top - kToolbarHeight;
     List<AddressModel> addresses = Provider.of<List<AddressModel>>(context);
-    print(addresses.length);
     return Align(
       alignment: Alignment.bottomCenter,
       child: Container(

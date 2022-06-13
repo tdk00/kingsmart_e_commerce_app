@@ -6,6 +6,7 @@ import 'package:kingsmart_online_app/screens/account/account_main.dart';
 import 'package:kingsmart_online_app/screens/main/main_screen/main_screeen.dart';
 import 'package:kingsmart_online_app/services/shopping_cart_service.dart';
 import 'package:provider/provider.dart';
+import '../store/category_products.dart';
 import '../store/store_screen.dart';
 
 int _selectedItemPosition = 0;
@@ -49,10 +50,7 @@ class _SnakeNavigationState extends State<SnakeNavigation> {
           children: <Widget>[
             MainScreen(),
             StoreScreen(),
-            Container(
-              color: Colors.green,
-              width: 100,
-            ),
+            CategoryProducts(id: -2, categoryName: "Promolar"),
             AccountMain()
           ],
         ),

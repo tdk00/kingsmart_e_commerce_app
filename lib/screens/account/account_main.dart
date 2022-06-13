@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kingsmart_online_app/screens/account/address.dart';
+import 'package:kingsmart_online_app/screens/account/contact_us.dart';
+import 'package:kingsmart_online_app/screens/account/order_history_list.dart';
 import 'package:kingsmart_online_app/screens/account/profile.dart';
 import 'package:kingsmart_online_app/screens/components/header_with_only_title.dart';
 import 'package:kingsmart_online_app/screens/components/related_products.dart';
@@ -11,6 +13,8 @@ import 'package:provider/provider.dart';
 import '../../Color.dart';
 import '../../models/profile_model.dart';
 import '../login/start.dart';
+import '../store/category_products.dart';
+import 'Terms.dart';
 
 class AccountMain extends StatelessWidget {
   @override
@@ -37,13 +41,13 @@ class Body extends StatelessWidget {
                 AccountMenuHeader(title: "Mənim hesabım",),
                 AccountMenuItem(title: 'Profilim', route: ProfileFuture() ),
                 AccountMenuItem(title: 'Ünvanlarım', route: AddressFuture()),
-                AccountMenuItem(title: 'Sifarişlər', route: Start()),
+                AccountMenuItem(title: 'Sifarişlər', route: OrderHistoryListCNP()),
                 AccountMenuHeader(title: "Alətlər",),
-                AccountMenuItem(title: 'Promolar', route: Start()),
+                AccountMenuItem(title: 'Promolar', route: CategoryProducts(id: -2, categoryName: "Promolar"),),
                 AccountMenuItem(title: 'Bildirişlər', route: Start()),
                 AccountMenuHeader(title: "Kömək",),
-                AccountMenuItem(title: 'Qaydalar', route: Start()),
-                AccountMenuItem(title: 'Bizimlə əlaqə', route: Start()),
+                AccountMenuItem(title: 'Qaydalar', route: TermsFP()),
+                AccountMenuItem(title: 'Bizimlə əlaqə', route: ContactUsFP()),
               ],
             ),
           ),

@@ -31,14 +31,85 @@ class OrderService {
     if ( statusCode == 200 ) {
       if( jsonDecode(responseBody)['status'] == true )
       {
-
           OrderModel orderModel = OrderModel.fromJson( jsonDecode(responseBody)['data'] );
           orderModel.items = [];
           return orderModel;
       }
 
     }
-    return OrderModel(id: -1, userId: 0, orderNumber: '', city: '', address: '', postal: '', note: '', payment: '', total: 0, items: [], createdAt: '');
+    return OrderModel(id: -1, userId: 0, orderNumber: '', city: '', address: '', postal: '', note: '', payment: '', total: 0, status: '', items: [], createdAt: '');
+
+  }
+
+  static Future <OrderModel> getOrderById( orderId ) async {
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var userId = prefs.getString('user_id');
+    final uri = Uri.parse(Config().apiBaseUrl + 'checkout/order/fetch_order_by_id');
+    var body = json.encode({
+      "user_id": 3,
+      "order_id" : orderId
+    });
+
+    Map<String,String> headers = {
+      'Content-type' : 'application/json',
+      'Accept': 'application/json',
+    };
+
+    Response response = await http.post(uri, body: body, headers: headers);
+    int statusCode = response.statusCode;
+    String responseBody = response.body;
+    if ( statusCode == 200 ) {
+      if( jsonDecode(responseBody)['status'] == true )
+      {
+        print(responseBody + "orderrrrrrrrr");
+        OrderModel orderModel = OrderModel.fromJson( jsonDecode(responseBody)['order_details'] );
+        orderModel.items = [];
+        for( var orderItemData in jsonDecode(responseBody)['items'] ){
+          OrderItemModel orderItemModel = OrderItemModel.fromJson( orderItemData );
+          orderModel.items.add(orderItemModel);
+        }
+        return orderModel;
+      }
+
+    }
+    return OrderModel(id: -1, userId: 0, orderNumber: '', city: '', address: '', postal: '', note: '', payment: '', total: 0, status: '', items: [], createdAt: '');
+
+  }
+
+  static Future <List<OrderModel>> getOrdersByDateRange( String dateFrom, String dateTo ) async {
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var userId = prefs.getString('user_id');
+    final uri = Uri.parse(Config().apiBaseUrl + 'checkout/order/fetch_orders_by_date_range');
+    var body = json.encode({
+      "user_id": 3,
+      "date_from" : dateFrom,
+      "date_to" : dateTo
+    });
+
+    Map<String,String> headers = {
+      'Content-type' : 'application/json',
+      'Accept': 'application/json',
+    };
+
+    Response response = await http.post(uri, body: body, headers: headers);
+    int statusCode = response.statusCode;
+    String responseBody = response.body;
+    List<OrderModel> ordersList = [];
+    if ( statusCode == 200 ) {
+      if( jsonDecode(responseBody)['status'] == true )
+      {
+        var data = jsonDecode(responseBody)['data'];
+        for( var order in data ) {
+          OrderModel orderModel = OrderModel.fromJson( order );
+          ordersList.add(orderModel);
+        }
+        return ordersList;
+      }
+
+    }
+    return [];
 
   }
 
@@ -61,7 +132,6 @@ class OrderService {
     Response response = await http.post(uri, body: body, headers: headers);
     int statusCode = response.statusCode;
     String responseBody = response.body;
-    print(responseBody);
     if( statusCode == 200 )
       {
 

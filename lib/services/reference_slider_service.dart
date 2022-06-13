@@ -31,8 +31,9 @@ class ReferenceSliderService {
                   item['id'],
                   item['title'],
                   item['summary'],
-                  item['link'],
-                  item['icon']
+                  int.tryParse(item['newsId']) ?? 0,
+                  item['icon'],
+                  item['hasLink'] == '1' ? true : false
               );
 
               slidersList.add(slider);

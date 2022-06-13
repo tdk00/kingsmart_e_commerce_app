@@ -105,8 +105,13 @@ class Addresses extends StatelessWidget {
         primary: false,
         itemCount: addresses.length,
         itemBuilder: (BuildContext context, int index) {
-          return  GestureDetector(
-            onTap: () {
+          return  TextButton(
+                        style: TextButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                            minimumSize: Size(0, 0),
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            alignment: Alignment.centerLeft),
+            onPressed: () {
               for( var i = 0 ; i < addresses.length; i++){
                 addresses[i].changeSelectedStatus(false);
               }

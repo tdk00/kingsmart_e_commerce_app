@@ -78,8 +78,14 @@ class ShoppingCartItem extends StatelessWidget {
                       ,
                       Padding(
                         padding: const EdgeInsets.only(left: 0.0),
-                        child: GestureDetector(
-                          onDoubleTap: () {
+                        child: TextButton(
+                        style: TextButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                            minimumSize: Size(0, 0),
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            alignment: Alignment.centerLeft),
+                          onPressed: null,
+                          onLongPress: () {
                             shoppingCart.deleteProductFromShoppingCart(productModel);
                           },
                           child: Container(

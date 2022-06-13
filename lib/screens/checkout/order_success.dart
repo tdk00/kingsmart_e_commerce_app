@@ -23,6 +23,7 @@ class OrderSuccess extends StatelessWidget {
         payment: '',
         postal: '',
         total: 0,
+        status: '',
         orderNumber: '',
       ),
       child: Body(),

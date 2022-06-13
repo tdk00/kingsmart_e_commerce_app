@@ -38,12 +38,17 @@ class HeaderAddresses extends StatelessWidget {
                       flex: 3,
                       child: Align(
                         alignment: Alignment.centerRight,
-                        child: GestureDetector(
+                        child: TextButton(
+                        style: TextButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                            minimumSize: Size(0, 0),
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            alignment: Alignment.centerLeft),
                           child: Container(
                             alignment: Alignment.topLeft,
                             child: Icon( Icons.arrow_back_ios, color: Colors.white, size: screenWidth / 20.43 ),
                           ),
-                          onTap: () {
+                          onPressed: () {
                             if( backToAccountMain == true )
                               {
                                 Navigator.pop(context);
@@ -75,13 +80,18 @@ class HeaderAddresses extends StatelessWidget {
                           alignment: Alignment.centerRight,
                           child: showAddIcon != false
                               ?
-                          GestureDetector(
+                          TextButton(
+                        style: TextButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                            minimumSize: Size(0, 0),
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            alignment: Alignment.centerLeft),
                             child: Icon(
                               Icons.add,
                               color: Colors.white,
                               size: 23,
                             ),
-                            onTap: () {
+                            onPressed: () {
                               AddressModel addressModel = AddressModel(id: 0, content: "", postal: "", note: "", selected: false);
                               Navigator.pushReplacement(context,
                                   MaterialPageRoute(builder: (_) =>
@@ -101,7 +111,12 @@ class HeaderAddresses extends StatelessWidget {
                         flex: 3,
                         child: showShoppingCartIcon != false ? Align(
                           alignment: Alignment.centerRight,
-                          child: GestureDetector(
+                          child: TextButton(
+                        style: TextButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                            minimumSize: Size(0, 0),
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            alignment: Alignment.centerLeft),
                             child: Stack(
                               clipBehavior: Clip.none,
                               children: [
@@ -113,7 +128,7 @@ class HeaderAddresses extends StatelessWidget {
                                 BuildDot()
                               ]
                             ),
-                            onTap: () {
+                            onPressed: () {
                               Navigator.pushNamed(context, "/shoppingCartScreen");
                             },
                           ),
@@ -123,13 +138,18 @@ class HeaderAddresses extends StatelessWidget {
                             ?
                         Align(
                           alignment: Alignment.centerRight,
-                          child: GestureDetector(
+                          child: TextButton(
+                        style: TextButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                            minimumSize: Size(0, 0),
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            alignment: Alignment.centerLeft),
                             child: Icon(
                               Icons.delete,
                               color: Colors.white,
                               size: 23,
                             ),
-                            onTap: () async {
+                            onPressed: () async {
                               await AddressService.deleteAddress( deleteId );
                               Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => AddressFuture()));
                             },

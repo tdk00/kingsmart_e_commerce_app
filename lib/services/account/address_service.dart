@@ -124,7 +124,6 @@ class AddressService {
     Response response = await http.post(uri, body: body, headers: headers);
     int statusCode = response.statusCode;
     String responseBody = response.body;
-    print(responseBody);
 
   }
 
@@ -173,7 +172,6 @@ class AddressService {
     Response response = await http.post(uri, body: body, headers: headers);
     int statusCode = response.statusCode;
     String responseBody = response.body;
-    print(responseBody);
 
   }
 

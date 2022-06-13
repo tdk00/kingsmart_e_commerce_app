@@ -15,7 +15,6 @@ class AddressModel extends ChangeNotifier{
 
     void changeAddress( String value )
     {
-      print(value);
       content = value;
       notifyListeners();
     }

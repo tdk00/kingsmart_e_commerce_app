@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class OrderModel extends ChangeNotifier{
   final int id, userId;
-  String orderNumber, city, address, postal, note, payment, createdAt;
+  String orderNumber, city, address, postal, note, payment, status, createdAt;
   double total;
   List<OrderItemModel> items;
   OrderModel( {
@@ -18,6 +18,7 @@ class OrderModel extends ChangeNotifier{
     required this.payment,
     required this.total,
     required this.items,
+    required this.status,
     required this.createdAt, } );
 
 
@@ -33,6 +34,7 @@ class OrderModel extends ChangeNotifier{
         payment: json['payment'],
         total: double.tryParse( json['total'] ) ?? 0,
         items: [],
+        status: json['status'],
         createdAt: json['createdAt']
     );
   }
@@ -48,6 +50,7 @@ class OrderModel extends ChangeNotifier{
         'payment': payment,
         'total': total,
         'items' : items,
+        'status' : status,
         'createdAt': createdAt,
       };
 
@@ -71,25 +74,25 @@ class OrderItemModel extends ChangeNotifier{
   factory OrderItemModel.fromJson(Map<String, dynamic> json) {
     return OrderItemModel(
         id: int.tryParse( json['id'] ) ?? 0,
-        productId: json['productId'],
+        productId: int.tryParse( json['productId'] ) ?? 0,
+        orderId: int.tryParse( json['orderId'] ) ?? 0,
+        price: double.tryParse( json['price'] ) ?? 0,
+        oldPrice: double.tryParse( json['oldPrice'] ) ?? 0,
+        quantity: int.tryParse( json['quantity'] ) ?? 0,
         name: json['name'],
         image: json['image'],
-        orderId: json['orderId'],
-        quantity: json['quantity'],
-        price: json['price'],
-        oldPrice: json['oldPrice']
     );
   }
   Map<String, dynamic> toJson() =>
       {
         'id': id,
         'productId': productId,
+        'orderId': orderId,
+        'price': price,
+        'oldPrice': oldPrice,
+        'quantity': quantity,
         'name': name,
         'image': image,
-        'orderId': orderId,
-        'quantity': quantity,
-        'price': price,
-        'oldPrice': oldPrice
       };
 
 }

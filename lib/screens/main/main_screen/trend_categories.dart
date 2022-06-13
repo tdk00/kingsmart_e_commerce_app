@@ -53,8 +53,13 @@ class TrendCategories extends StatelessWidget {
                 ),
                 showAllButton ?  Expanded(
                   flex: 4,
-                  child: GestureDetector(
-                    onTap: (){
+                  child: TextButton(
+                        style: TextButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                            minimumSize: Size(0, 0),
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            alignment: Alignment.centerLeft),
+                    onPressed: (){
                       Navigator.push(context,  MaterialPageRoute(builder: (_) => AllCategories()));
                     },
                     child: Container(
@@ -82,8 +87,13 @@ class TrendCategories extends StatelessWidget {
             flex: 4,
             child: SizedBox(
               width: screenWidth,
-              height:  MediaQuery.of(context).size.height * .14,
-              child: ListView.builder(
+              height:  height1 * .14,
+              child: ListView.separated(
+                shrinkWrap: true,
+                  separatorBuilder: (BuildContext context, int index) =>
+                      Container(
+                        width: screenWidth / 50,
+                      ),
                   scrollDirection: Axis.horizontal,
                   itemCount: categoryList.length ,
                   itemBuilder: (context, i) {

@@ -40,12 +40,22 @@ class FavoriteProducts extends StatelessWidget {
                       color: Colors.black),
                 ),
                 Expanded(child: Container()),
-                GestureDetector(
-                  onTap: () {
+                TextButton(
+                        style: TextButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                            minimumSize: Size(0, 0),
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            alignment: Alignment.centerLeft),
+                  onPressed: () {
 
                   },
-                  child: GestureDetector(
-                    onTap: (){
+                  child: TextButton(
+                        style: TextButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                            minimumSize: Size(0, 0),
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            alignment: Alignment.centerLeft),
+                    onPressed: (){
                       Navigator.push(context,  MaterialPageRoute(builder: (_) => CategoryProducts(id: -1, categoryName: "Bəyəndiyin məhsullar")));
                     },
                     child: Text(

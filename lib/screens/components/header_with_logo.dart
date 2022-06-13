@@ -25,7 +25,12 @@ class HeaderWithLogo extends StatelessWidget {
               SizedBox(
                 width: screenWidth / 5,
               ),
-              GestureDetector(
+              TextButton(
+                        style: TextButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                            minimumSize: Size(0, 0),
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            alignment: Alignment.centerLeft),
                 child: Stack(
                     clipBehavior: Clip.none,
                     children: [
@@ -37,7 +42,7 @@ class HeaderWithLogo extends StatelessWidget {
                       BuildDot()
                     ]
                 ),
-                onTap: () {
+                onPressed: () {
                   Navigator.pushNamed(context, "/shoppingCartScreen");
                 },
               ),

@@ -58,7 +58,6 @@ class ProfileService {
     Response response = await http.post(uri, body: body, headers: headers);
     int statusCode = response.statusCode;
     String responseBody = response.body;
-    print(responseBody);
 
   }
 

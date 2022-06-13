@@ -52,7 +52,6 @@ class ShoppingCartService {
     Map<String, int> shoppingCartProducts = {};
     shoppingCart.shoppingCartItems.forEach((productModel,productCount) => shoppingCartProducts[ productModel.id.toString()] = productCount );
 
-    print(jsonEncode(shoppingCartProducts));
     shoppingCart.isModified = false;
     var body = jsonEncode({
       "items": shoppingCartProducts,

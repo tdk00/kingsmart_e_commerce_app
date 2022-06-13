@@ -37,7 +37,12 @@ class HeaderWithOnlyTitle extends StatelessWidget {
                       flex: 3,
                       child: Align(
                         alignment: Alignment.centerRight,
-                        child: GestureDetector(
+                        child: TextButton(
+                        style: TextButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                            minimumSize: Size(0, 0),
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            alignment: Alignment.centerLeft),
                           child: Stack(
                               clipBehavior: Clip.none,
                               children: [
@@ -49,7 +54,7 @@ class HeaderWithOnlyTitle extends StatelessWidget {
                                 BuildDot()
                               ]
                           ),
-                          onTap: () {
+                          onPressed: () {
                             Navigator.pushNamed(context, "/shoppingCartScreen");
                           },
                         ),

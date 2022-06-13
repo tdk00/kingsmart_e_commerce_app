@@ -75,8 +75,13 @@ class Body extends StatelessWidget {
                               ),
                               color: Colors.black),
                         ),
-                        GestureDetector(
-                          onTap: (){
+                        TextButton(
+                        style: TextButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                            minimumSize: Size(0, 0),
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            alignment: Alignment.centerLeft),
+                          onPressed: (){
                             Navigator.pushReplacement(context, MaterialPageRoute( builder: (_) => ChangeAddressCheckoutFuture() ));
                           },
                           child: Text(
@@ -209,8 +214,13 @@ class NoAddress extends StatelessWidget {
     double height = MediaQuery.of(context).size.height;
     var padding = MediaQuery.of(context).viewPadding;
     double height1 = height - padding.top - kToolbarHeight;
-    return GestureDetector(
-      onTap: (){
+    return TextButton(
+                        style: TextButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                            minimumSize: Size(0, 0),
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            alignment: Alignment.centerLeft),
+      onPressed: (){
         Navigator.pushReplacement(context, MaterialPageRoute( builder: (_) => ChangeAddressCheckoutFuture() ));
       },
       child: Container(

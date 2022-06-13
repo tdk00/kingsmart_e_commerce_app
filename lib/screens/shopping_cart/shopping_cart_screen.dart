@@ -23,6 +23,9 @@ class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+    var padding = MediaQuery.of(context).viewPadding;
+    double height1 = height - padding.top - kToolbarHeight;
     ShoppingCartModel shoppingCart = Provider.of<ShoppingCartModel>(context);
     var shoppingCartListKeys = shoppingCart.shoppingCartItems.keys.toList();
     ShoppingCartService.updateShoppingCart( shoppingCart, forceUpdate: true );
@@ -33,26 +36,61 @@ class Body extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Color(0xFFFFF9F3),
-        appBar: AppBar(
-          backgroundColor: CustomColors().kingsRed,
-          elevation: 0,
-          centerTitle: true,
-          leading: GestureDetector(
-              onTap: () {
-                ShoppingCartService.updateShoppingCart( shoppingCart );
-                Navigator.pop(context);
-              },
-              child: Icon(Icons.arrow_back_ios)),
-          title: Text("Səbət",
-              textAlign: TextAlign.left,
-              style: GoogleFonts.montserrat( textStyle: TextStyle(  fontSize: screenWidth / 20.43, ),
-                  color: Colors.white)),
-        ),
         body: Column(
           children: [
-            SizedBox(
-              height: 20,
-            ),
+          Container(
+            color: CustomColors().kingsRed,
+            child: SizedBox(
+            height: height1 / 13,
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(),
+                  Padding(
+                    padding: EdgeInsets.only(left: screenWidth / 15.43, right: screenWidth / 15.43,),
+                    child: Row(
+                        children: [
+                          Expanded(
+                            flex: 3,
+                            child: Align(
+                              alignment: Alignment.centerRight,
+                              child: TextButton(
+                                style: TextButton.styleFrom(
+                                    padding: EdgeInsets.zero,
+                                    minimumSize: Size(0, 0),
+                                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                    alignment: Alignment.centerLeft),
+                                child: Container(
+                                  alignment: Alignment.topLeft,
+                                  child: Icon( Icons.arrow_back_ios, color: Colors.white, size: screenWidth / 20.43 ),
+                                ),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 10,
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: Text('Səbət',
+                                style: GoogleFonts.montserrat(
+                                    textStyle: TextStyle(
+                                      fontSize: screenWidth / 20.43,
+                                    ),
+                                    color: Colors.white),),
+                            ),
+                          ),
+                          Expanded(
+                              flex: 3,
+                              child: SizedBox()
+                          ),
+                        ]),
+                  ),
+                ]),
+        ),
+          ),
             Expanded(
               flex: 1,
               child: Container(
@@ -115,8 +153,13 @@ return Scaffold(
     backgroundColor: CustomColors().kingsRed,
     elevation: 0,
     centerTitle: true,
-    leading: GestureDetector(
-        onTap: () {
+    leading: TextButton(
+                        style: TextButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                            minimumSize: Size(0, 0),
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            alignment: Alignment.centerLeft),
+        onPressed: () {
         },
         child: Icon(Icons.arrow_back_ios)),
     title: Text("Səbət",

@@ -1,6 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kingsmart_online_app/screens/main/main_screen/news_detail.dart';
+import 'package:kingsmart_online_app/services/config.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../models/reference_slider_model.dart';
@@ -9,10 +11,6 @@ class ReferenceSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
-    var padding = MediaQuery.of(context).viewPadding;
-    double height1 = height - padding.top - kToolbarHeight;
     List<ReferenceSliderModel> slidersModelList = Provider.of<List<ReferenceSliderModel>>(context);
     List<Widget> widgetSliders = [];
 
@@ -43,6 +41,12 @@ class ReferenceSliderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    double screenWidth = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+    var padding = MediaQuery.of(context).viewPadding;
+    double height1 = height - padding.top - kToolbarHeight;
+
     return  Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -51,68 +55,61 @@ class ReferenceSliderWidget extends StatelessWidget {
         ),
       ),
       child: SizedBox(
-        width: MediaQuery.of(context).size.width / 1.13,
+        width: screenWidth / 1.13,
         child: Row(
           children: [
             Column(
               children: [
                 Container(
-                  width: MediaQuery.of(context).size.width / 1.94,
+                  width: screenWidth / 1.94,
                   padding: EdgeInsets.only(
-                      left: MediaQuery.of(context).size.width / 23.14,
-                      top: MediaQuery.of(context).size.width / 43.14),
+                      left: screenWidth / 23.14,
+                      top: screenWidth / 43.14),
                   child: Text(
                     slider.title,
                     style: GoogleFonts.montserrat(
                         textStyle: TextStyle(
-                          fontSize:
-                          MediaQuery.of(context).size.width /
-                              37.43,
+                          fontSize: screenWidth / 37.43,
                           fontWeight: FontWeight.w500,
                         ),
                         color: Colors.black),
                   ),
                 ),
                 Container(
-                  width: MediaQuery.of(context).size.width / 1.94,
+                  width: screenWidth / 1.94,
                   padding: EdgeInsets.only(
-                      left: MediaQuery.of(context).size.width / 23.14,
-                      top: MediaQuery.of(context).size.height / 183.14),
+                      left: screenWidth / 23.14,
+                      top: screenWidth / 183.14),
                   child: Text(
                     slider.summary,
                     style: GoogleFonts.montserrat(
                         textStyle: TextStyle(
-                          fontSize:
-                          MediaQuery.of(context).size.width /
-                              35.43,
+                          fontSize:screenWidth / 35.43,
                         ),
                         color: Colors.black),
                   ),
                 ),
+                slider.hasLink
+                  ?
                 Container(
-                  width: MediaQuery.of(context).size.width / 1.94,
-                  padding: EdgeInsets.only(
-                      left: MediaQuery.of(context).size.width / 23.14,
-                      top: MediaQuery.of(context).size.height / 183.14),
+                  width: screenWidth / 1.94,
+                  padding: EdgeInsets.only( left: screenWidth / 23.14,),
                   child: Row(
                     children: [
-                      GestureDetector(
-                        onTap: () async {
-                           var url = Uri.parse(slider.link);
-                          if (await canLaunchUrl(url)) {
-                            await launchUrl(url);
-                          } else {
-                            throw 'Could not launch $url';
-                          }
+                      TextButton(
+                        style: TextButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                            minimumSize: Size(0, 0),
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            alignment: Alignment.centerLeft),
+                        onPressed: () async {
+                            Navigator.push(context, MaterialPageRoute(builder: (_) => NewsDetailFP(newsId: slider.newsId )));
                         },
                         child: Text(
                           "Daha ətraflı",
                           style: GoogleFonts.montserrat(
                               textStyle: TextStyle(
-                                  fontSize: MediaQuery.of(context)
-                                      .size
-                                      .width /
-                                      35.43,
+                                  fontSize: screenWidth / 35.43,
                                   fontWeight: FontWeight.w500),
                               color: Color(0xFFEA0029)),
                         ),
@@ -124,18 +121,19 @@ class ReferenceSliderWidget extends StatelessWidget {
                       ),
                     ],
                   ),
-                ),
+                )
+                    :
+                    SizedBox()
               ],
             ),
+            SizedBox( width: screenWidth / 9.125),
             SizedBox(
-                width: MediaQuery.of(context).size.width / 9.125),
-            SizedBox(
-              height: MediaQuery.of(context).size.height / 12.125,
+              height: height1 / 12.125,
               child: Tab(
                 icon: Image(
                   fit: BoxFit.fitHeight,
                   image: NetworkImage(
-                    slider.icon,
+                    Config().apiBaseUrl + slider.icon,
                   ),
                 ),
               ),

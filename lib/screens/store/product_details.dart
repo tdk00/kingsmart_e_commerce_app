@@ -259,8 +259,13 @@ class EditNoteWidget extends StatelessWidget {
     double height = MediaQuery.of(context).size.height;
     var padding = MediaQuery.of(context).viewPadding;
     double height1 = height - padding.top - kToolbarHeight;
-    return GestureDetector(
-      onTap: (){
+    return TextButton(
+                        style: TextButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                            minimumSize: Size(0, 0),
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            alignment: Alignment.centerLeft),
+      onPressed: (){
         Navigator.push(context,  MaterialPageRoute(builder: (_) => EditNoteModal( productModel: productModel, )));
       },
       child: Container(
