@@ -29,7 +29,7 @@
         </intent>
     </queries>
    <application
-        android:label="kingsmart_online_app"
+        android:label="Kingsmart"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 import '../../models/product_model.dart';
 import '../../models/promo_products_model.dart';
 import '../../models/shopping_cart_model.dart';
-import '../../services/config.dart';
+import '../../helpers/config.dart';
 
 class ProductCard extends StatelessWidget {
 

@@ -1,13 +1,8 @@
 import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
-import 'package:kingsmart_online_app/models/contact_us_model.dart';
-import 'package:kingsmart_online_app/models/favorite_products_model.dart';
-import 'package:kingsmart_online_app/models/product_model.dart';
-import 'package:kingsmart_online_app/models/profile_model.dart';
 import 'package:kingsmart_online_app/models/terms_model.dart';
-import 'package:kingsmart_online_app/services/config.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:kingsmart_online_app/helpers/config.dart';
 
 class TermsService {
 
@@ -19,6 +14,7 @@ class TermsService {
     Map<String,String> headers = {
       'Content-type' : 'application/json',
       'Accept': 'application/json',
+      'authorizationkinsgmart' : await Config.getToken()
     };
 
     Response response = await http.post(uri, body: body, headers: headers);

@@ -4,7 +4,7 @@ import 'package:kingsmart_online_app/models/product_model.dart';
 import 'package:kingsmart_online_app/models/shopping_cart_model.dart';
 import 'package:provider/provider.dart';
 
-import '../../services/config.dart';
+import '../../helpers/config.dart';
 import '../components/add_to_cart_widget.dart';
 
 class ShoppingCartItem extends StatelessWidget {

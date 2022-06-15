@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 import 'package:kingsmart_online_app/models/order_model.dart';
 import 'package:kingsmart_online_app/screens/components/header_with_back.dart';
-import 'package:kingsmart_online_app/screens/login/start.dart';
 import 'package:kingsmart_online_app/services/checkout/order_service.dart';
-import 'package:kingsmart_online_app/services/config.dart';
-import 'package:kingsmart_online_app/state_datas/account/state_data_orders_by_date.dart';
+import 'package:kingsmart_online_app/helpers/config.dart';
 import 'package:provider/provider.dart';
-import 'package:shimmer/shimmer.dart';
 
 import '../../Color.dart';
 

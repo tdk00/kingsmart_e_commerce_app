@@ -3,8 +3,7 @@ import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
 import 'package:kingsmart_online_app/models/category_model.dart';
 import 'package:kingsmart_online_app/models/product_model.dart';
-import 'package:kingsmart_online_app/services/config.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:kingsmart_online_app/helpers/config.dart';
 
 class CategoryService {
 
@@ -16,6 +15,7 @@ class CategoryService {
     Map<String,String> headers = {
       'Content-type' : 'application/json',
       'Accept': 'application/json',
+      'authorizationkinsgmart' : await Config.getToken()
     };
 
     Response response = await http.post(uri, body: body, headers: headers);
@@ -49,6 +49,7 @@ class CategoryService {
     Map<String,String> headers = {
       'Content-type' : 'application/json',
       'Accept': 'application/json',
+      'authorizationkinsgmart' : await Config.getToken()
     };
 
     Response response = await http.post(uri, body: body, headers: headers);
@@ -77,7 +78,6 @@ class CategoryService {
   static Future <List<ProductModel>> fetchProductsByCategoryId( int categoryId, String sortBy ) async {
     final uri = Uri.parse(Config().apiBaseUrl + 'category/category/fetch_products_by_category_id');
     var body = json.encode({
-      'user_id' : 3,
       "category_id" : categoryId,
       "sort_by" : sortBy
     });
@@ -85,6 +85,7 @@ class CategoryService {
     Map<String,String> headers = {
       'Content-type' : 'application/json',
       'Accept': 'application/json',
+      'authorizationkinsgmart' : await Config.getToken()
     };
 
     Response response = await http.post(uri, body: body, headers: headers);
@@ -113,14 +114,14 @@ class CategoryService {
   static Future <List<ProductModel>> fetchProductsBySearch( String? searchKeyWord, String sortBy ) async {
     final uri = Uri.parse(Config().apiBaseUrl + 'category/category/fetch_products_by_search');
     var body = json.encode({
-      'user_id' : 3,
       "search_keyword" : searchKeyWord,
-      "sort_by" : sortBy
+      "sort_by" : sortBy,
     });
 
     Map<String,String> headers = {
       'Content-type' : 'application/json',
       'Accept': 'application/json',
+      'authorizationkinsgmart' : await Config.getToken()
     };
 
     Response response = await http.post(uri, body: body, headers: headers);

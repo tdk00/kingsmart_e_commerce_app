@@ -146,77 +146,221 @@ class Body extends StatelessWidget {
 class ShoppingCartEmpty extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-return Scaffold(
+    double screenWidth = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+    var padding = MediaQuery.of(context).viewPadding;
+    double height1 = height - padding.top - kToolbarHeight;
+return SafeArea(
+  child:   Scaffold(
+    backgroundColor: Color(0xFFFFF9F3),
 
-  backgroundColor: Color(0xFFFFF9F3),
-  appBar: AppBar(
-    backgroundColor: CustomColors().kingsRed,
-    elevation: 0,
-    centerTitle: true,
-    leading: TextButton(
-                        style: TextButton.styleFrom(
-                            padding: EdgeInsets.zero,
-                            minimumSize: Size(0, 0),
-                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                            alignment: Alignment.centerLeft),
-        onPressed: () {
-        },
-        child: Icon(Icons.arrow_back_ios)),
-    title: Text("Səbət",
-        textAlign: TextAlign.left,
-        style: GoogleFonts.montserrat( textStyle: TextStyle(  fontSize: MediaQuery.of(context).size.width / 20.43, ),
-            color: Colors.white)),
-  ),
-  body: Column(
-    children: [
-      SizedBox(
-        height: 150,
-      ),
-      SizedBox(
-        width: 150,
-        height: 150,
-        child: Image.asset("assets/layers/shoppingCart.png"),
-      ),
-      Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Text("Hələ ki səbətinə əlavə edilmiş məhsul yoxdur",
-            textAlign: TextAlign.left,
-            style: GoogleFonts.montserrat(
-                textStyle: TextStyle(
-                  fontSize: MediaQuery.of(context).size.width / 27,
-                ),
-                color: Colors.grey)),
-      ),
-      Padding(
-          padding: const EdgeInsets.all(13.0),
-          child: Container(
-            height: 55,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(
-                  MediaQuery.of(context).size.width / 51.5),
-            ),
-            width: MediaQuery.of(context).size.width,
-            child: MaterialButton(
-              shape: RoundedRectangleBorder(
-                  borderRadius:
-                  BorderRadius.all(Radius.circular(10.0))),
-              color: Colors.red,
-              child: Text("ALIŞ VERİŞƏ BAŞLAYIN",
-                  textAlign: TextAlign.left,
-                  style: GoogleFonts.montserrat(
-                      textStyle: TextStyle(
-                        fontSize:
-                        MediaQuery.of(context).size.width /
-                            27,
-                      ),
-                      color: Colors.white)),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-          )),
-    ],
+    body: Column(
+
+      children: [
+
+        Container(
+
+          color: CustomColors().kingsRed,
+
+          child: SizedBox(
+
+            height: height1 / 13,
+
+            child: Column(
+
+                mainAxisAlignment: MainAxisAlignment.center,
+
+                children: [
+
+                  SizedBox(),
+
+                  Padding(
+
+                    padding: EdgeInsets.only(left: screenWidth / 15.43, right: screenWidth / 15.43,),
+
+                    child: Row(
+
+                        children: [
+
+                          Expanded(
+
+                            flex: 3,
+
+                            child: Align(
+
+                              alignment: Alignment.centerRight,
+
+                              child: TextButton(
+
+                                style: TextButton.styleFrom(
+
+                                    padding: EdgeInsets.zero,
+
+                                    minimumSize: Size(0, 0),
+
+                                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+
+                                    alignment: Alignment.centerLeft),
+
+                                child: Container(
+
+                                  alignment: Alignment.topLeft,
+
+                                  child: Icon( Icons.arrow_back_ios, color: Colors.white, size: screenWidth / 20.43 ),
+
+                                ),
+
+                                onPressed: () {
+
+                                  Navigator.pop(context);
+
+                                },
+
+                              ),
+
+                            ),
+
+                          ),
+
+                          Expanded(
+
+                            flex: 10,
+
+                            child: Align(
+
+                              alignment: Alignment.center,
+
+                              child: Text('Səbət',
+
+                                style: GoogleFonts.montserrat(
+
+                                    textStyle: TextStyle(
+
+                                      fontSize: screenWidth / 20.43,
+
+                                    ),
+
+                                    color: Colors.white),),
+
+                            ),
+
+                          ),
+
+                          Expanded(
+
+                              flex: 3,
+
+                              child: SizedBox()
+
+                          ),
+
+                        ]),
+
+                  ),
+
+                ]),
+
+          ),
+
+        ),
+
+
+        SizedBox(
+          height: 150,
+        ),
+
+        SizedBox(
+
+          width: 150,
+
+          height: 150,
+
+          child: Image.asset("assets/layers/shoppingCart.png"),
+
+        ),
+
+        Padding(
+
+          padding: const EdgeInsets.all(8.0),
+
+          child: Text("Hələ ki səbətinə əlavə edilmiş məhsul yoxdur",
+
+              textAlign: TextAlign.left,
+
+              style: GoogleFonts.montserrat(
+
+                  textStyle: TextStyle(
+
+                    fontSize: MediaQuery.of(context).size.width / 27,
+
+                  ),
+
+                  color: Colors.grey)),
+
+        ),
+
+        Padding(
+
+            padding: const EdgeInsets.all(13.0),
+
+            child: Container(
+
+              height: 55,
+
+              decoration: BoxDecoration(
+
+                color: Colors.white,
+
+                borderRadius: BorderRadius.circular(
+
+                    MediaQuery.of(context).size.width / 51.5),
+
+              ),
+
+              width: MediaQuery.of(context).size.width,
+
+              child: MaterialButton(
+
+                shape: RoundedRectangleBorder(
+
+                    borderRadius:
+
+                    BorderRadius.all(Radius.circular(10.0))),
+
+                color: Colors.red,
+
+                child: Text("ALIŞ VERİŞƏ BAŞLAYIN",
+
+                    textAlign: TextAlign.left,
+
+                    style: GoogleFonts.montserrat(
+
+                        textStyle: TextStyle(
+
+                          fontSize:
+
+                          MediaQuery.of(context).size.width /
+
+                              27,
+
+                        ),
+
+                        color: Colors.white)),
+
+                onPressed: () {
+
+                  Navigator.pop(context);
+
+                },
+
+              ),
+
+            )),
+
+      ],
+
+    ),
+
   ),
 );
   }

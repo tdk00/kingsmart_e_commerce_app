@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
-import 'package:kingsmart_online_app/services/config.dart';
+import 'package:kingsmart_online_app/helpers/config.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Authentication {
@@ -57,7 +57,7 @@ class Authentication {
         {
           var userId = jsonDecode(responseBody)['user_id'];
           var userToken = jsonDecode(responseBody)['user_token'];
-          prefs.setString('user_id', userId);
+          prefs.setInt('user_id', int.tryParse(userId) ?? 0 );
           prefs.setString('user_token', userToken);
           return true;
         }

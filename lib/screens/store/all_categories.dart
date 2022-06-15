@@ -7,7 +7,7 @@ import 'package:kingsmart_online_app/screens/store/category_products.dart';
 import 'package:provider/provider.dart';
 import '../../models/category_model.dart';
 import '../../services/category_service.dart';
-import '../../services/config.dart';
+import '../../helpers/config.dart';
 
 class AllCategories extends StatelessWidget {
   const AllCategories({Key? key}) : super(key: key);

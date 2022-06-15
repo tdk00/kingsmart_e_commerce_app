@@ -4,7 +4,7 @@ import 'package:kingsmart_online_app/Color.dart';
 import 'package:kingsmart_online_app/models/category_model.dart';
 import 'package:provider/provider.dart';
 
-import '../../../services/config.dart';
+import '../../../helpers/config.dart';
 import '../../store/all_categories.dart';
 import '../../store/category_products.dart';
 

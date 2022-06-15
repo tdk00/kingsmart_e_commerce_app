@@ -1,17 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kingsmart_online_app/screens/account/address.dart';
 import 'package:kingsmart_online_app/screens/account/contact_us.dart';
 import 'package:kingsmart_online_app/screens/account/order_history_list.dart';
 import 'package:kingsmart_online_app/screens/account/profile.dart';
 import 'package:kingsmart_online_app/screens/components/header_with_only_title.dart';
-import 'package:kingsmart_online_app/screens/components/related_products.dart';
-import 'package:kingsmart_online_app/services/account/profile_service.dart';
-import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../Color.dart';
-import '../../models/profile_model.dart';
 import '../login/start.dart';
 import '../store/category_products.dart';
 import 'Terms.dart';
@@ -44,10 +42,11 @@ class Body extends StatelessWidget {
                 AccountMenuItem(title: 'Sifarişlər', route: OrderHistoryListCNP()),
                 AccountMenuHeader(title: "Alətlər",),
                 AccountMenuItem(title: 'Promolar', route: CategoryProducts(id: -2, categoryName: "Promolar"),),
-                AccountMenuItem(title: 'Bildirişlər', route: Start()),
+                // AccountMenuItem(title: 'Bildirişlər', route: Start()),
                 AccountMenuHeader(title: "Kömək",),
                 AccountMenuItem(title: 'Qaydalar', route: TermsFP()),
                 AccountMenuItem(title: 'Bizimlə əlaqə', route: ContactUsFP()),
+                AccountMenuItem(title: 'Çıxış', route: Start(), isExit: true),
               ],
             ),
           ),
@@ -61,7 +60,8 @@ class Body extends StatelessWidget {
 class AccountMenuItem extends StatelessWidget{
   final String title;
   final Widget route;
-  AccountMenuItem({ required this.title, required this.route });
+  final bool? isExit;
+  AccountMenuItem({ required this.title, required this.route, this.isExit });
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -72,8 +72,17 @@ class AccountMenuItem extends StatelessWidget{
       padding: EdgeInsets.only(left: screenWidth / 20, right: screenWidth / 20),
       child: InkWell(
         splashColor: Colors.redAccent,
-        onTap: () {
-          Navigator.push(context,  MaterialPageRoute(builder: (_) => route));
+        onTap: () async {
+          if( isExit == true )
+            {
+              var prefManager = await SharedPreferences.getInstance();
+              await prefManager.clear();
+              SystemNavigator.pop();
+            }
+          else
+            {
+              Navigator.push(context,  MaterialPageRoute(builder: (_) => route));
+            }
         },
         child: SizedBox(
           height: height1 / 20,

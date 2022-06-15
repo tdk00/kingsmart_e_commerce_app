@@ -1,8 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
-import 'package:kingsmart_online_app/services/config.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:kingsmart_online_app/helpers/config.dart';
 
 import '../models/reference_slider_model.dart';
 
@@ -15,6 +14,7 @@ class ReferenceSliderService {
     Map<String,String> headers = {
       'Content-type' : 'application/json',
       'Accept': 'application/json',
+      'authorizationkinsgmart' : await Config.getToken()
     };
 
     Response response = await http.post(uri, body: body, headers: headers);

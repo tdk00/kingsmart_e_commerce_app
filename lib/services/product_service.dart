@@ -1,16 +1,14 @@
 import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
-import 'package:kingsmart_online_app/models/favorite_products_model.dart';
 import 'package:kingsmart_online_app/models/product_model.dart';
-import 'package:kingsmart_online_app/services/config.dart';
+import 'package:kingsmart_online_app/helpers/config.dart';
 
 class ProductService {
 
   static Future addNote( productId, note ) async {
     final uri = Uri.parse(Config().apiBaseUrl + 'product/product/edit_note');
     var body = json.encode({
-      'user_id' : 3,
       'product_id' : productId,
       'note' : note
     });
@@ -18,6 +16,7 @@ class ProductService {
     Map<String,String> headers = {
       'Content-type' : 'application/json',
       'Accept': 'application/json',
+      'authorizationkinsgmart' : await Config.getToken()
     };
 
     Response response = await http.post(uri, body: body, headers: headers);
@@ -47,13 +46,13 @@ class ProductService {
   static Future<ProductModel> getProductById( ProductModel productModel ) async {
     final uri = Uri.parse(Config().apiBaseUrl + 'product/product/fetch_product_by_id');
     var body = json.encode({
-      'user_id' : 3,
       "product_id" : productModel.id
     });
 
     Map<String,String> headers = {
       'Content-type' : 'application/json',
       'Accept': 'application/json',
+      'authorizationkinsgmart' : await Config.getToken()
     };
 
     Response response = await http.post(uri, body: body, headers: headers);
@@ -78,13 +77,13 @@ class ProductService {
   static Future<List<ProductModel>> getRelatedProductsById( ProductModel productModel ) async {
     final uri = Uri.parse(Config().apiBaseUrl + 'product/product/fetch_related_products');
     var body = json.encode({
-      'user_id' : 3,
       "product_id" : productModel.id
     });
 
     Map<String,String> headers = {
       'Content-type' : 'application/json',
       'Accept': 'application/json',
+      'authorizationkinsgmart' : await Config.getToken()
     };
 
     Response response = await http.post(uri, body: body, headers: headers);

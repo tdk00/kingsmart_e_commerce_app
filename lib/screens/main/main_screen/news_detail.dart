@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../Color.dart';
 import '../../../models/news_model.dart';
-import '../../../services/config.dart';
+import '../../../helpers/config.dart';
 import '../../../services/news_service.dart';
-import '../../components/header_with_back.dart';
 
 
 class NewsDetailFP extends StatelessWidget {
@@ -33,8 +33,10 @@ class Body extends StatelessWidget {
     double height1 = height - padding.top - kToolbarHeight;
 
     NewsModel news = Provider.of<NewsModel>(context);
+
     return SafeArea(child: Scaffold(
-        body: Column(
+        body: news.id > 0 ?
+        Column(
           children: [
             Expanded(
               flex: 2,
@@ -119,6 +121,55 @@ class Body extends StatelessWidget {
 
           ],
         )
+            :
+        shimmer(screenWidth, height1)
     ));
+  }
+
+  Widget shimmer(screenWidth, height1 ){
+    return Shimmer.fromColors(
+      baseColor: Color(0xFFf5f5f7),
+      highlightColor: Color(0xFFEBEBF4),
+      child: Column(
+        children: [
+          Container(
+            margin: EdgeInsets.only(left: screenWidth / 25, top: height1 / 30),
+            width: screenWidth / 1.1 ,
+            height: height1 / 8 ,
+            color: Color(0xFFEBEBF4),
+          ),
+          Container(
+            margin: EdgeInsets.only(left: screenWidth / 25, top: height1 / 70),
+            width: screenWidth / 1.1 ,
+            height: height1 / 3 ,
+            color: Color(0xFFEBEBF4),
+          ),
+          Container(
+            margin: EdgeInsets.only(left: screenWidth / 25, top: height1 / 30),
+            width: screenWidth / 1.1 ,
+            height: height1 / 50 ,
+            color: Color(0xFFEBEBF4),
+          ),
+          Container(
+            margin: EdgeInsets.only(left: screenWidth / 25, top: height1 / 30),
+            width: screenWidth / 1.1 ,
+            height: height1 / 50 ,
+            color: Color(0xFFEBEBF4),
+          ),
+          Container(
+            margin: EdgeInsets.only(left: screenWidth / 25, top: height1 / 30),
+            width: screenWidth / 1.1 ,
+            height: height1 / 50 ,
+            color: Color(0xFFEBEBF4),
+          ),
+          Container(
+            margin: EdgeInsets.only(left: screenWidth / 25, top: height1 / 30),
+            width: screenWidth / 1.1 ,
+            height: height1 / 50 ,
+            color: Color(0xFFEBEBF4),
+          ),
+        ],
+      ),
+    );
   }
 }

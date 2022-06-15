@@ -3,21 +3,20 @@ import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
 import 'package:kingsmart_online_app/models/product_model.dart';
 import 'package:kingsmart_online_app/models/promo_products_model.dart';
-import 'package:kingsmart_online_app/services/config.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:kingsmart_online_app/helpers/config.dart';
 
 class PromosService {
 
   static Future <PromoProductsModel> getPromoProducts( int limit ) async {
     final uri = Uri.parse(Config().apiBaseUrl + 'promo/promo/fetch_promo_products');
     var body = json.encode({
-      'user_id' : 3,
       'limit' : limit
     });
 
     Map<String,String> headers = {
       'Content-type' : 'application/json',
       'Accept': 'application/json',
+      'authorizationkinsgmart' : await Config.getToken()
     };
 
     Response response = await http.post(uri, body: body, headers: headers);

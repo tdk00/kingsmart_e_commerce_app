@@ -13,8 +13,7 @@ class BonusCardService {
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var mobile = prefs.getString('user_mobile');
-
-    var cardNo = await getCardNumberByMobile( "0708497010" );
+    var cardNo = await getCardNumberByMobile( mobile );
 
     if( cardNo.length > 12 )
     {
@@ -23,7 +22,9 @@ class BonusCardService {
           .get(Uri.parse('http://217.64.22.158:8088/Olimpos/CrmServis/OlymposMobile.asmx/GetPuan?MkrtNo='+cardNo));
       var storeDocument2 = xml.XmlDocument.parse(response2.body.toString());
       cardBalans = jsonDecode(storeDocument2.innerText)[0]['PUAN'].toString();
-      cardBalans = double.parse(cardBalans)/10;
+      cardBalans = double.tryParse(cardBalans) ?? 0;
+      cardBalans = cardBalans / 10;
+
       return BonusKart(
         cardNo.toString().substring(4,13),
         cardBalans.toStringAsFixed(2),

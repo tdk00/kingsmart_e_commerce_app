@@ -3,7 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:kingsmart_online_app/models/favorite_products_model.dart';
 import 'package:kingsmart_online_app/screens/components/add_to_cart_widget.dart';
 import 'package:kingsmart_online_app/screens/components/header_with_back.dart';
-import 'package:kingsmart_online_app/screens/components/header_with_only_title.dart';
 import 'package:kingsmart_online_app/screens/components/related_products.dart';
 import 'package:kingsmart_online_app/services/favorite_products_service.dart';
 import 'package:kingsmart_online_app/services/product_service.dart';
@@ -13,7 +12,7 @@ import '../../Color.dart';
 import '../../models/product_model.dart';
 import '../../models/promo_products_model.dart';
 import '../../models/shopping_cart_model.dart';
-import '../../services/config.dart';
+import '../../helpers/config.dart';
 import '../../services/promos_service.dart';
 
 class ProductDetails extends StatelessWidget {

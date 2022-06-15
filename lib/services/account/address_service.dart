@@ -2,24 +2,19 @@ import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
 import 'package:kingsmart_online_app/models/address_model.dart';
-import 'package:kingsmart_online_app/models/favorite_products_model.dart';
-import 'package:kingsmart_online_app/models/product_model.dart';
-import 'package:kingsmart_online_app/models/profile_model.dart';
-import 'package:kingsmart_online_app/services/config.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:kingsmart_online_app/helpers/config.dart';
 
 class AddressService {
 
 
   static Future<List<AddressModel>> getAddresses() async {
     final uri = Uri.parse(Config().apiBaseUrl + 'account/address/fetch_addresses');
-    var body = json.encode({
-      'user_id' : 3,
-    });
+    var body = json.encode({});
 
     Map<String,String> headers = {
       'Content-type' : 'application/json',
       'Accept': 'application/json',
+      'authorizationkinsgmart' : await Config.getToken()
     };
 
     Response response = await http.post(uri, body: body, headers: headers);
@@ -47,13 +42,12 @@ class AddressService {
 
   static Future<AddressModel> getSelectedAddress() async {
     final uri = Uri.parse(Config().apiBaseUrl + 'account/address/fetch_selected_address');
-    var body = json.encode({
-      'user_id' : 3,
-    });
+    var body = json.encode({ });
 
     Map<String,String> headers = {
       'Content-type' : 'application/json',
       'Accept': 'application/json',
+      'authorizationkinsgmart' : await Config.getToken()
     };
 
     Response response = await http.post(uri, body: body, headers: headers);
@@ -78,13 +72,13 @@ class AddressService {
   static Future<AddressModel> getAddressById( int addressId ) async {
     final uri = Uri.parse(Config().apiBaseUrl + 'account/address/fetch_address_by_id');
     var body = json.encode({
-      'user_id' : 3,
       'address_id' : addressId
     });
 
     Map<String,String> headers = {
       'Content-type' : 'application/json',
       'Accept': 'application/json',
+      'authorizationkinsgmart' : await Config.getToken()
     };
 
     Response response = await http.post(uri, body: body, headers: headers);
@@ -107,18 +101,16 @@ class AddressService {
 
 
   static addOrEditAddress( addressModel ) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    var userId = prefs.getString('user_id');
     final uri = Uri.parse(Config().apiBaseUrl + 'account/address/add_or_edit_address');
 
     var body = jsonEncode({
       "address_details": addressModel,
-      "user_id": 3,
     });
 
     Map<String,String> headers = {
       'Content-type' : 'application/json',
       'Accept': 'application/json',
+      'authorizationkinsgmart' : await Config.getToken()
     };
 
     Response response = await http.post(uri, body: body, headers: headers);
@@ -128,18 +120,16 @@ class AddressService {
   }
 
   static setSelectedAddress( addressId ) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    var userId = prefs.getString('user_id');
     final uri = Uri.parse(Config().apiBaseUrl + 'account/address/set_selected_address');
 
     var body = jsonEncode({
       "address_id": addressId,
-      "user_id": 3,
     });
 
     Map<String,String> headers = {
       'Content-type' : 'application/json',
       'Accept': 'application/json',
+      'authorizationkinsgmart' : await Config.getToken()
     };
 
     Response response = await http.post(uri, body: body, headers: headers);
@@ -155,18 +145,16 @@ class AddressService {
   }
 
   static deleteAddress( addressId ) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    var userId = prefs.getString('user_id');
     final uri = Uri.parse(Config().apiBaseUrl + 'account/address/delete_address');
 
     var body = jsonEncode({
       "address_id": addressId,
-      "user_id": 3,
     });
 
     Map<String,String> headers = {
       'Content-type' : 'application/json',
       'Accept': 'application/json',
+      'authorizationkinsgmart' : await Config.getToken()
     };
 
     Response response = await http.post(uri, body: body, headers: headers);

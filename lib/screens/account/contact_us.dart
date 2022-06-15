@@ -36,7 +36,6 @@ class Body extends StatelessWidget {
 
     ContactUsModel contactUsModel = Provider.of<ContactUsModel>(context);
 
-    print( contactUsModel.phone );
 
     return SafeArea(
       child: Scaffold(
