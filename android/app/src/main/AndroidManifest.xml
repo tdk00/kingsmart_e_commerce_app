@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.kingsmart_online_app">
+    package="com.kingsmart.kingsmart_application">
     <queries>
         <!-- If your app checks for SMS support -->
         <intent>

@@ -1,7 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Config{
-  String apiBaseUrl = "https://1001x.az/dxdxdx1/kingsmart_ecommerce/";
+  String apiBaseUrl = "https://kingsmart.az/kingsmart_ecommerce/";
 
   static getToken() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
