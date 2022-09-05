@@ -7,10 +7,9 @@ import '../helpers/config.dart';
 
 class NewsService {
 
-  static Future <NewsModel> getNewsById( newsId ) async {
-    final uri = Uri.parse(Config().apiBaseUrl + 'main/news/fetch_news_by_id');
+  static Future <List<NewsModel>> getAllNews() async {
+    final uri = Uri.parse(Config().apiBaseUrl + 'main/news/fetch_all_news');
     var body = json.encode({
-      "news_id" : newsId
     });
 
     Map<String,String> headers = {
@@ -22,15 +21,21 @@ class NewsService {
     Response response = await http.post(uri, body: body, headers: headers);
     int statusCode = response.statusCode;
     String responseBody = response.body;
-    if ( statusCode == 200 ) {
-      if( jsonDecode(responseBody)['status'] == true )
-      {
-        NewsModel newsModel = NewsModel.fromJson( jsonDecode(responseBody)['data'] );
-        return newsModel;
-      }
 
+    if( jsonDecode(responseBody)['status'] == true )
+    {
+
+      var data = jsonDecode(responseBody)['data'];
+      List<NewsModel> newsList = [];
+      for( var news in data ) {
+
+        NewsModel productModel = NewsModel.fromJson( news );
+
+        newsList.add(productModel);
+      }
+      return newsList;
     }
-    return NewsModel(id: -1, title: '', image: '', content: '', createdAt: '');
+    return [];
 
   }
 

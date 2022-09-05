@@ -48,11 +48,7 @@ class ReferenceSliderWidget extends StatelessWidget {
 
     return  GestureDetector(
       onTap: (){
-        slider.hasLink
-            ?
-        Navigator.push(context, MaterialPageRoute(builder: (_) => NewsDetailFP(newsId: slider.newsId )))
-            :
-            null;
+        Navigator.push(context, MaterialPageRoute(builder: (_) => NewsDetailFP(newsId: slider.newsId )));
 
       },
       child: Container(
@@ -159,4 +155,3 @@ class ReferenceSliderWidget extends StatelessWidget {
     );
   }
 }
-

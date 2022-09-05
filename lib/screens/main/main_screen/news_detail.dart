@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -10,20 +11,32 @@ import '../../../helpers/config.dart';
 import '../../../services/news_service.dart';
 
 
-class NewsDetailFP extends StatelessWidget {
+class NewsDetailFP extends StatefulWidget {
   final int newsId;
   const NewsDetailFP({Key? key,  required this.newsId }) : super(key: key);
+
+  @override
+  State<NewsDetailFP> createState() => _NewsDetailFPState();
+}
+
+class _NewsDetailFPState extends State<NewsDetailFP> {
   @override
   Widget build(BuildContext context) {
-    return FutureProvider<NewsModel>.value(
-      value: NewsService.getNewsById( newsId ),
-      initialData: NewsModel(id: 0, title: '', image: '', content: '', createdAt: ''),
+    return FutureProvider<List<NewsModel>>.value(
+
+      value: NewsService.getAllNews(),
+      initialData: [],
       child: Body(),
     );
   }
 }
 
-class Body extends StatelessWidget {
+class Body extends StatefulWidget {
+  @override
+  State<Body> createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
 
@@ -32,19 +45,22 @@ class Body extends StatelessWidget {
     var padding = MediaQuery.of(context).viewPadding;
     double height1 = height - padding.top - kToolbarHeight;
 
-    NewsModel news = Provider.of<NewsModel>(context);
-
+    List<NewsModel> news = Provider.of<List<NewsModel>>(context);
+    List<String> _imgProductSlider = [];
+    for( var i = 0; i < news.length; i++) {
+        _imgProductSlider.add(Config().apiBaseUrl + news[i].image);
+    }
     return SafeArea(child: Scaffold(
-        body: news.id > 0 ?
+        body: news.isNotEmpty ?
         Column(
           children: [
             Expanded(
-              flex: 2,
+              flex: 1,
               child: Container(
                 padding: EdgeInsets.only( left: screenWidth / 25, top: height1 / 80, bottom: height1 / 80),
                 color: CustomColors().kingsRed,
                 child: SizedBox(
-                  child: Column(
+                  child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Expanded(
@@ -58,7 +74,7 @@ class Body extends StatelessWidget {
                                   tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                                   alignment: Alignment.centerLeft),
                               child: Container(
-                                alignment: Alignment.topLeft,
+                                alignment: Alignment.center,
                                 child: Icon( Icons.arrow_back_ios, color: Colors.white, size: screenWidth / 20.43 ),
                               ),
                               onPressed: () {
@@ -71,7 +87,7 @@ class Body extends StatelessWidget {
                           flex: 10,
                           child: Align(
                             alignment: Alignment.center,
-                            child: Text(news.title,
+                            child: Text("Kampaniyalar",
                               style: GoogleFonts.montserrat(
                                   textStyle: TextStyle(
                                     fontSize: screenWidth / 20.43,
@@ -83,40 +99,33 @@ class Body extends StatelessWidget {
                           flex: 2,
                           child: Align(
                             alignment: Alignment.topLeft,
-                            child: Text(news.createdAt,
-                              style: GoogleFonts.montserrat(
-                                  textStyle: TextStyle(
-                                    fontSize: screenWidth / 30.43,
-                                  ),
-                                  color: Colors.white),),
+                            child: Text(""),
                           ),
                         ),
                       ]),
                 ),
               ),
             ),
-            Expanded(flex: 4,child: SizedBox(
-              child: Image(
-                fit: BoxFit.fitHeight,
-                image: NetworkImage(
-                  Config().apiBaseUrl.toString() + news.image,
+            Expanded(flex: 10,child: SizedBox(
+              child: Padding(
+                padding: EdgeInsets.only(right: screenWidth / 30.43, left: screenWidth / 30.43),
+                child: CarouselSlider(
+                  items: _imgProductSlider
+                      .map((item) => Container(
+                    child: Center(
+                        child:
+                        Image.network(item, fit: BoxFit.fitHeight, width: 400)),
+                  ))
+                      .toList(),
+                  options: CarouselOptions(
+                      aspectRatio: 0.6,
+                      viewportFraction: 1.0,
+                      autoPlay: false,
+                      enlargeCenterPage: true
+                  ),
                 ),
               ),
             )),
-            Expanded(flex: 7,child:
-            Padding(
-              padding: EdgeInsets.all(20),
-              child: SingleChildScrollView(
-                child: Align(
-                  alignment: Alignment.topLeft,
-                  child: Html(data: news.content, style: {
-                    'body' : Style(
-                      fontSize: FontSize.em(1.4)
-                    ),
-                  },),
-                ),
-              ),
-            ))
 
 
           ],
