@@ -48,7 +48,7 @@ class ReferenceSliderWidget extends StatelessWidget {
 
     return  GestureDetector(
       onTap: (){
-        Navigator.push(context, MaterialPageRoute(builder: (_) => NewsDetailFP(newsId: slider.newsId )));
+        Navigator.push(context, MaterialPageRoute(builder: (_) => NewsDetailFP(newsId: 1 )));
 
       },
       child: Container(
