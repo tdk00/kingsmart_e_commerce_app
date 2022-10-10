@@ -5,7 +5,7 @@ class ProductModel extends ChangeNotifier{
   final String barkod, title, summary, image;
   String note;
   final double price, oldPrice,  discount;
-  bool isFavorite;
+  bool isFavorite, isOnlineMarket;
 
     ProductModel({
     required this.id,
@@ -17,12 +17,14 @@ class ProductModel extends ChangeNotifier{
     required this.oldPrice,
     required this.discount,
     required this.isFavorite,
-    required this.note
+    required this.note,
+    required this.isOnlineMarket
 
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) {
     var is_favorite = int.tryParse( json['isFavorite'] ) ?? 0;
+    var is_online_market = int.tryParse( json['onlineMarket'] ) ?? 0;
     return ProductModel(
       id: int.tryParse( json['id'] ) ?? 0,
       barkod: json['barkod'],
@@ -34,6 +36,7 @@ class ProductModel extends ChangeNotifier{
       discount: double.tryParse( json['discount'] )  ?? 0,
       isFavorite: is_favorite > 0 ,
       note: json['note'],
+      isOnlineMarket: is_online_market > 0
     );
 
   }
@@ -51,7 +54,8 @@ class ProductModel extends ChangeNotifier{
         'oldPrice': oldPrice,
         'discount': discount,
         'isFavorite': isFavorite,
-        'note' : note
+        'note' : note,
+        'onlineMarket': isOnlineMarket
       };
 
     void toggleIsFavorite( bool status ){

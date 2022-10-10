@@ -3,6 +3,7 @@ import 'package:kingsmart_online_app/Color.dart';
 import 'package:kingsmart_online_app/screens/components/header_with_only_title.dart';
 import 'package:kingsmart_online_app/screens/components/products_grid_view.dart';
 import 'package:kingsmart_online_app/screens/components/search_input.dart';
+import 'package:kingsmart_online_app/services/online_store_service.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/favorite_products_model.dart';
@@ -19,7 +20,7 @@ class StoreScreen extends StatelessWidget {
     return MultiProvider(
       providers: [
         FutureProvider<FavoriteProductsModel>(create: (context) => FavoriteProductsService.getFavoriteProducts( 6 ), initialData: FavoriteProductsModel()) ,
-        FutureProvider<PromoProductsModel>(create: (context) => PromosService.getPromoProducts( 10 ), initialData: PromoProductsModel()) ,
+        FutureProvider<PromoProductsModel>(create: (context) => OnlineStoreService.getOnlineMarketProducts( 10 ), initialData: PromoProductsModel()) ,
       ],
       child: Body()
     );
@@ -41,8 +42,9 @@ class Body extends StatelessWidget {
                 Container( color: CustomColors().kingsRed , child: HeaderWithOnlyTitle(title: "Onlayn Market"), ),
                 Container( color: CustomColors().kingsRed , child: SearchInput(), ),
                 Container( color: CustomColors().kingsRed,height: MediaQuery.of(context).size.height / 50,),
-                TrendCategories(showAllButton: true, mainTitleColor: Colors.black, categoryTitleColor: Colors.black, mainTitleText: "Kateqoriyadan seç", ),
-                Expanded(child: ProductGridView( title: "Endirimli məhsullar", productList: model.promoProducts ,),),
+                Container( height: MediaQuery.of(context).size.height / 50,),
+                // TrendCategories(showAllButton: true, mainTitleColor: Colors.black, categoryTitleColor: Colors.black, mainTitleText: "Kateqoriyadan seç", ),
+                Expanded(child: ProductGridView( title: "", productList: model.promoProducts ,),),
               ],
             ),
           ),

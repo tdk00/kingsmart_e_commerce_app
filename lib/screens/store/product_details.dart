@@ -155,6 +155,7 @@ class ProductDetails extends StatelessWidget {
                             ],
                           ),
                         ),
+                        productModel.isOnlineMarket ?
                         Expanded(
                             flex: 12,
                             child: ChangeNotifierProvider.value(
@@ -164,7 +165,7 @@ class ProductDetails extends StatelessWidget {
                                     child: AddToCartWidget(
                                       productModel: productModel,
                                       shoppingCartView: false,
-                                    )))),
+                                    )))) : Container(),
                         Expanded(flex: 5, child: SizedBox())
                       ],
                     ),

@@ -117,9 +117,10 @@ class ProductCard extends StatelessWidget {
                   ),
                 ),
               ),
+              productModel.isOnlineMarket ?
               Expanded(flex: 12,child: ChangeNotifierProvider.value(
                   value: shoppingCart,
-                  child: AddToCartWidget(productModel: productModel, shoppingCartView: false,))),
+                  child: AddToCartWidget(productModel: productModel, shoppingCartView: false,))) : Container(),
               Expanded(flex: 5,child: SizedBox())
             ],
           ),
